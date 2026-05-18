@@ -567,6 +567,38 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
   const [rightSidebarOpen, setRightSidebarOpen] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState<'overview' | 'mission-control' | 'brands' | 'brand-details'>('overview');
 
+  const sparkBrandsData = [
+    { val: 1 },
+    { val: 2 },
+    { val: 2 },
+    { val: 3 },
+    { val: 4 }
+  ];
+
+  const sparkEmployeesData = [
+    { val: 12 },
+    { val: 16 },
+    { val: 15 },
+    { val: 20 },
+    { val: 24 }
+  ];
+
+  const sparkWorkflowsData = [
+    { val: 10 },
+    { val: 15 },
+    { val: 12 },
+    { val: 22 },
+    { val: 25 }
+  ];
+
+  const sparkTasksData = [
+    { val: 300 },
+    { val: 380 },
+    { val: 420 },
+    { val: 490 },
+    { val: 527 }
+  ];
+
   console.log("Dashboard Render Check");
   console.log("CountUp type:", typeof CountUp, CountUp);
   console.log("GaugeComponent type:", typeof GaugeComponent, GaugeComponent);
@@ -728,18 +760,19 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
                       </span>
                     </div>
                   </div>
-                  {/* Sparkline */}
+                  {/* Interactive Recharts Sparkline */}
                   <div className="w-full h-8 mt-2 overflow-hidden shrink-0">
-                    <svg className="w-full h-full text-cyan-400" viewBox="0 0 200 40">
-                      <defs>
-                        <linearGradient id="cyanSparkGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#06b6d4" stopOpacity={0.25} />
-                          <stop offset="100%" stopColor="#06b6d4" stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <path d="M 0 35 Q 25 15 50 30 T 100 10 T 150 25 T 200 8" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                      <path d="M 0 35 Q 25 15 50 30 T 100 10 T 150 25 T 200 8 L 200 40 L 0 40 Z" fill="url(#cyanSparkGrad)" />
-                    </svg>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={sparkBrandsData} margin={{ top: 2, right: 2, left: 2, bottom: 2 }}>
+                        <defs>
+                          <linearGradient id="cyanSparkGradStat" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#06b6d4" stopOpacity={0.25} />
+                            <stop offset="100%" stopColor="#06b6d4" stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <Area type="monotone" dataKey="val" stroke="#06b6d4" strokeWidth={1.5} fillOpacity={1} fill="url(#cyanSparkGradStat)" />
+                      </AreaChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
 
@@ -759,18 +792,19 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
                       </span>
                     </div>
                   </div>
-                  {/* Sparkline */}
+                  {/* Interactive Recharts Sparkline */}
                   <div className="w-full h-8 mt-2 overflow-hidden shrink-0">
-                    <svg className="w-full h-full text-purple-450" viewBox="0 0 200 40">
-                      <defs>
-                        <linearGradient id="purpleSparkGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#a855f7" stopOpacity={0.25} />
-                          <stop offset="100%" stopColor="#a855f7" stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <path d="M 0 32 Q 30 12 60 28 T 120 8 T 180 20 T 200 12" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                      <path d="M 0 32 Q 30 12 60 28 T 120 8 T 180 20 T 200 12 L 200 40 L 0 40 Z" fill="url(#purpleSparkGrad)" />
-                    </svg>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={sparkEmployeesData} margin={{ top: 2, right: 2, left: 2, bottom: 2 }}>
+                        <defs>
+                          <linearGradient id="purpleSparkGradStat" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#a855f7" stopOpacity={0.25} />
+                            <stop offset="100%" stopColor="#a855f7" stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <Area type="monotone" dataKey="val" stroke="#a855f7" strokeWidth={1.5} fillOpacity={1} fill="url(#purpleSparkGradStat)" />
+                      </AreaChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
 
@@ -790,18 +824,19 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
                       </span>
                     </div>
                   </div>
-                  {/* Sparkline */}
+                  {/* Interactive Recharts Sparkline */}
                   <div className="w-full h-8 mt-2 overflow-hidden shrink-0">
-                    <svg className="w-full h-full text-emerald-450" viewBox="0 0 200 40">
-                      <defs>
-                        <linearGradient id="emeraldSparkGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#10b981" stopOpacity={0.25} />
-                          <stop offset="100%" stopColor="#10b981" stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <path d="M 0 30 Q 25 8 50 25 T 100 5 T 150 22 T 200 10" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                      <path d="M 0 30 Q 25 8 50 25 T 100 5 T 150 22 T 200 10 L 200 40 L 0 40 Z" fill="url(#emeraldSparkGrad)" />
-                    </svg>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={sparkWorkflowsData} margin={{ top: 2, right: 2, left: 2, bottom: 2 }}>
+                        <defs>
+                          <linearGradient id="emeraldSparkGradStat" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#10b981" stopOpacity={0.25} />
+                            <stop offset="100%" stopColor="#10b981" stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <Area type="monotone" dataKey="val" stroke="#10b981" strokeWidth={1.5} fillOpacity={1} fill="url(#emeraldSparkGradStat)" />
+                      </AreaChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
 
@@ -821,18 +856,19 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
                       </span>
                     </div>
                   </div>
-                  {/* Sparkline */}
+                  {/* Interactive Recharts Sparkline */}
                   <div className="w-full h-8 mt-2 overflow-hidden shrink-0">
-                    <svg className="w-full h-full text-yellow-450" viewBox="0 0 200 40">
-                      <defs>
-                        <linearGradient id="yellowSparkGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#eab308" stopOpacity={0.25} />
-                          <stop offset="100%" stopColor="#eab308" stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <path d="M 0 35 Q 35 15 70 30 T 140 8 T 200 15" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                      <path d="M 0 35 Q 35 15 70 30 T 140 8 T 200 15 L 200 40 L 0 40 Z" fill="url(#yellowSparkGrad)" />
-                    </svg>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={sparkTasksData} margin={{ top: 2, right: 2, left: 2, bottom: 2 }}>
+                        <defs>
+                          <linearGradient id="yellowSparkGradStat" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#eab308" stopOpacity={0.25} />
+                            <stop offset="100%" stopColor="#eab308" stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <Area type="monotone" dataKey="val" stroke="#eab308" strokeWidth={1.5} fillOpacity={1} fill="url(#yellowSparkGradStat)" />
+                      </AreaChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
 
@@ -852,15 +888,25 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
                       </span>
                     </div>
                   </div>
-                  {/* Vertical Glowing Equalizer Bars */}
-                  <div className="flex items-end justify-between h-8 px-1 mt-2 shrink-0">
-                    {[10, 8, 9, 11, 10, 12, 10, 11, 9, 10, 12, 11, 12, 10, 11, 12].map((h, i) => (
-                      <div 
-                        key={i} 
-                        style={{ height: `${h * 8}%` }} 
-                        className="w-1.5 bg-gradient-to-t from-teal-500/20 to-teal-400 rounded-sm shadow-[0_0_4px_rgba(20,184,166,0.4)]"
+                  {/* Speed Meter Speedometer Gauge */}
+                  <div className="relative w-full h-10 mt-1 flex items-center justify-center overflow-hidden">
+                    <div className="w-24 h-16 relative -mt-3.5 scale-[1.25]">
+                      <GaugeComponent
+                        type="semicircle"
+                        arc={{
+                          width: 0.15,
+                          padding: 0.02,
+                          subArcs: [
+                            { limit: 30, color: '#f43f5e', showTick: false },
+                            { limit: 70, color: '#eab308', showTick: false },
+                            { limit: 100, color: '#14b8a6', showTick: false }
+                          ]
+                        }}
+                        pointer={{ type: 'needle', width: 0.05, length: 0.8, color: '#14b8a6' }}
+                        labels={{ valueLabel: { formatTextValue: () => '' }, tickLabels: { type: "outer", hideMinMax: true, defaultTickValueConfig: { hide: true }, defaultTickLineConfig: { hide: true } } }}
+                        value={100}
                       />
-                    ))}
+                    </div>
                   </div>
                 </div>
 
