@@ -882,8 +882,8 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">System Health</span>
                   </div>
 
-                  <div className="relative w-full h-24 flex items-center justify-center overflow-hidden -mt-1 shrink-0">
-                    <div className="w-28 h-20 relative scale-[1.1]">
+                  <div className="relative w-full h-28 flex items-center justify-center -mt-2 shrink-0">
+                    <div className="w-40 h-28 relative scale-[1.2]">
                       <GaugeComponent
                         type="semicircle"
                         arc={{
@@ -908,9 +908,9 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
                         }}
                         value={100}
                       />
-                      <div className="absolute bottom-0 left-0 right-0 text-center">
-                        <div className="text-xl font-black text-white font-outfit leading-none">100%</div>
-                        <div className="text-[8px] text-teal-400 font-bold mt-0.5 leading-none">Online</div>
+                      <div className="absolute bottom-2 left-0 right-0 text-center">
+                        <div className="text-2xl font-black text-white font-outfit leading-none">100%</div>
+                        <div className="text-[9px] text-teal-400 font-bold mt-0.5 leading-none">Online</div>
                       </div>
                     </div>
                   </div>
