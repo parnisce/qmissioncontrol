@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-brand-dark: #020617;
+  --color-brand-accent: #00E5FF;
+  --color-brand-blue: #0072FF;
+  --color-brand-card: rgba(15, 23, 42, 0.6);
+  
+  --font-inter: "Inter", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-brand-dark);
+    color: #f8fafc;
+    -webkit-font-smoothing: antialiased;
+    font-family: var(--font-inter);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-outfit);
+  }
+}
+
+.glass-card {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cyan-glow {
+  text-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+}
+
+.cyan-gradient-bg {
+  background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+}
+
+.input-field {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid #1e293b;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: #e2e8f0;
+  transition: all 0.3s;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--color-brand-accent);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
