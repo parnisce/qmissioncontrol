@@ -138,6 +138,545 @@ const brandsData = [
   }
 ];
 
+export const aiEmployeesList = [
+  {
+    id: 'AI-EMP-001',
+    name: 'Content Writer AI',
+    role: 'Content Writer',
+    roleBadge: 'Content Writer AI',
+    roleBadgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    dept: 'Content Creation',
+    status: 'Active',
+    perf: 98.5,
+    tasks: 128,
+    lastActive: '2 min ago',
+    desc: 'Creates high-quality, SEO-optimized content for blogs, landing pages, and marketing campaigns.',
+    brandAccess: '4 Brands',
+    joinedOn: 'Apr 18, 2025',
+    languages: 'English, Arabic',
+    workload: 78,
+    perfTrend: [
+      { name: 'W1', val: 94 },
+      { name: 'W2', val: 96 },
+      { name: 'W3', val: 95 },
+      { name: 'W4', val: 98.5 }
+    ],
+    tasksTrend: [
+      { name: 'W1', val: 12 },
+      { name: 'W2', val: 18 },
+      { name: 'W3', val: 15 },
+      { name: 'W4', val: 24 }
+    ]
+  },
+  {
+    id: 'AI-EMP-002',
+    name: 'SEO Assistant AI',
+    role: 'SEO Specialist',
+    roleBadge: 'SEO Specialist AI',
+    roleBadgeColor: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+    dept: 'Marketing',
+    status: 'Active',
+    perf: 96.2,
+    tasks: 96,
+    lastActive: '4 min ago',
+    desc: 'Conducts keyword research, optimizes on-page SEO factors, and monitors search rankings.',
+    brandAccess: '3 Brands',
+    joinedOn: 'Apr 20, 2025',
+    languages: 'English, French',
+    workload: 65,
+    perfTrend: [
+      { name: 'W1', val: 92 },
+      { name: 'W2', val: 94 },
+      { name: 'W3', val: 95 },
+      { name: 'W4', val: 96.2 }
+    ],
+    tasksTrend: [
+      { name: 'W1', val: 10 },
+      { name: 'W2', val: 14 },
+      { name: 'W3', val: 12 },
+      { name: 'W4', val: 18 }
+    ]
+  },
+  {
+    id: 'AI-EMP-003',
+    name: 'Data Analyst AI',
+    role: 'Data Analyst',
+    roleBadge: 'Data Analyst AI',
+    roleBadgeColor: 'bg-amber-500/10 text-amber-450 border-amber-500/20',
+    dept: 'Analytics',
+    status: 'Active',
+    perf: 97.1,
+    tasks: 85,
+    lastActive: '6 min ago',
+    desc: 'Processes system analytics, generates performance reports, and extracts optimization models.',
+    brandAccess: '5 Brands',
+    joinedOn: 'Apr 22, 2025',
+    languages: 'English, Python',
+    workload: 82,
+    perfTrend: [
+      { name: 'W1', val: 93 },
+      { name: 'W2', val: 95 },
+      { name: 'W3', val: 96 },
+      { name: 'W4', val: 97.1 }
+    ],
+    tasksTrend: [
+      { name: 'W1', val: 8 },
+      { name: 'W2', val: 12 },
+      { name: 'W3', val: 11 },
+      { name: 'W4', val: 16 }
+    ]
+  },
+  {
+    id: 'AI-EMP-004',
+    name: 'Social Media AI',
+    role: 'Social Media Manager',
+    roleBadge: 'Social Media AI',
+    roleBadgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    dept: 'Marketing',
+    status: 'Idle',
+    perf: 92.3,
+    tasks: 64,
+    lastActive: '15 min ago',
+    desc: 'Schedules posts, monitors user engagement, and responds to messages across social platforms.',
+    brandAccess: '4 Brands',
+    joinedOn: 'Apr 25, 2025',
+    languages: 'English, Spanish',
+    workload: 50,
+    perfTrend: [
+      { name: 'W1', val: 90 },
+      { name: 'W2', val: 91 },
+      { name: 'W3', val: 89 },
+      { name: 'W4', val: 92.3 }
+    ],
+    tasksTrend: [
+      { name: 'W1', val: 6 },
+      { name: 'W2', val: 10 },
+      { name: 'W3', val: 8 },
+      { name: 'W4', val: 12 }
+    ]
+  },
+  {
+    id: 'AI-EMP-005',
+    name: 'Email Marketing AI',
+    role: 'Email Marketer',
+    roleBadge: 'Email Marketer AI',
+    roleBadgeColor: 'bg-emerald-500/10 text-emerald-450 border-emerald-500/20',
+    dept: 'Marketing',
+    status: 'Active',
+    perf: 95.7,
+    tasks: 72,
+    lastActive: '3 min ago',
+    desc: 'Drafts and schedules email newsletters, performs A/B tests, and tracks click-through metrics.',
+    brandAccess: '2 Brands',
+    joinedOn: 'May 01, 2025',
+    languages: 'English, German',
+    workload: 55,
+    perfTrend: [
+      { name: 'W1', val: 91 },
+      { name: 'W2', val: 93 },
+      { name: 'W3', val: 94 },
+      { name: 'W4', val: 95.7 }
+    ],
+    tasksTrend: [
+      { name: 'W1', val: 8 },
+      { name: 'W2', val: 12 },
+      { name: 'W3', val: 10 },
+      { name: 'W4', val: 14 }
+    ]
+  },
+  {
+    id: 'AI-EMP-006',
+    name: 'Customer Support AI',
+    role: 'Support Specialist',
+    roleBadge: 'Support Specialist AI',
+    roleBadgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    dept: 'Customer Support',
+    status: 'Active',
+    perf: 94.8,
+    tasks: 143,
+    lastActive: '1 min ago',
+    desc: 'Answers user inquiries in real-time, resolves basic support tickets, and maintains helpful customer interactions.',
+    brandAccess: '4 Brands',
+    joinedOn: 'May 03, 2025',
+    languages: 'English, Multi-lingual',
+    workload: 90,
+    perfTrend: [
+      { name: 'W1', val: 90 },
+      { name: 'W2', val: 92 },
+      { name: 'W3', val: 93 },
+      { name: 'W4', val: 94.8 }
+    ],
+    tasksTrend: [
+      { name: 'W1', val: 14 },
+      { name: 'W2', val: 20 },
+      { name: 'W3', val: 18 },
+      { name: 'W4', val: 26 }
+    ]
+  },
+  {
+    id: 'AI-EMP-007',
+    name: 'Video Editor AI',
+    role: 'Video Editor',
+    roleBadge: 'Video Editor AI',
+    roleBadgeColor: 'bg-amber-500/10 text-amber-450 border-amber-500/20',
+    dept: 'Content Creation',
+    status: 'Offline',
+    perf: 87.6,
+    tasks: 41,
+    lastActive: '3 hours ago',
+    desc: 'Applies color grading, trims segments, inserts visual overlays, and renders high-definition promo materials.',
+    brandAccess: '3 Brands',
+    joinedOn: 'May 08, 2025',
+    languages: 'English',
+    workload: 40,
+    perfTrend: [
+      { name: 'W1', val: 84 },
+      { name: 'W2', val: 85 },
+      { name: 'W3', val: 84 },
+      { name: 'W4', val: 87.6 }
+    ],
+    tasksTrend: [
+      { name: 'W1', val: 4 },
+      { name: 'W2', val: 8 },
+      { name: 'W3', val: 6 },
+      { name: 'W4', val: 10 }
+    ]
+  },
+  {
+    id: 'AI-EMP-008',
+    name: 'Ads Manager AI',
+    role: 'Ads Manager',
+    roleBadge: 'Ads Manager AI',
+    roleBadgeColor: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+    dept: 'Marketing',
+    status: 'Active',
+    perf: 97.9,
+    tasks: 110,
+    lastActive: '5 min ago',
+    desc: 'Launches paid campaigns, manages daily ad spend budgets, and optimizes conversion channels.',
+    brandAccess: '4 Brands',
+    joinedOn: 'May 12, 2025',
+    languages: 'English, French',
+    workload: 75,
+    perfTrend: [
+      { name: 'W1', val: 94 },
+      { name: 'W2', val: 95 },
+      { name: 'W3', val: 96 },
+      { name: 'W4', val: 97.9 }
+    ],
+    tasksTrend: [
+      { name: 'W1', val: 10 },
+      { name: 'W2', val: 16 },
+      { name: 'W3', val: 14 },
+      { name: 'W4', val: 22 }
+    ]
+  },
+  {
+    id: 'AI-EMP-009',
+    name: 'Campaign Planner AI',
+    role: 'Growth Specialist',
+    roleBadge: 'Growth Specialist AI',
+    roleBadgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    dept: 'Marketing',
+    status: 'Active',
+    perf: 95.8,
+    tasks: 68,
+    lastActive: '12 min ago',
+    desc: 'Analyzes market trends, generates paid advertising strategies, and coordinates campaign schedules.',
+    brandAccess: '3 Brands',
+    joinedOn: 'May 14, 2025',
+    languages: 'English',
+    workload: 62,
+    perfTrend: [{ name: 'W1', val: 90 }, { name: 'W4', val: 95.8 }],
+    tasksTrend: [{ name: 'W1', val: 6 }, { name: 'W4', val: 12 }]
+  },
+  {
+    id: 'AI-EMP-010',
+    name: 'Brand Identity AI',
+    role: 'Creative Designer',
+    roleBadge: 'Creative Designer AI',
+    roleBadgeColor: 'bg-amber-500/10 text-amber-450 border-amber-500/20',
+    dept: 'Content Creation',
+    status: 'Active',
+    perf: 96.5,
+    tasks: 89,
+    lastActive: '8 min ago',
+    desc: 'Designs custom logos, selects color systems, and establishes visual guidelines across platforms.',
+    brandAccess: '4 Brands',
+    joinedOn: 'May 16, 2025',
+    languages: 'English',
+    workload: 70,
+    perfTrend: [{ name: 'W1', val: 92 }, { name: 'W4', val: 96.5 }],
+    tasksTrend: [{ name: 'W1', val: 8 }, { name: 'W4', val: 16 }]
+  },
+  {
+    id: 'AI-EMP-011',
+    name: 'UX Researcher AI',
+    role: 'UX Architect',
+    roleBadge: 'UX Architect AI',
+    roleBadgeColor: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+    dept: 'Analytics',
+    status: 'Active',
+    perf: 94.3,
+    tasks: 57,
+    lastActive: '15 min ago',
+    desc: 'Performs wireframe validation, user pathway optimization, and accessibility testing reviews.',
+    brandAccess: '3 Brands',
+    joinedOn: 'May 18, 2025',
+    languages: 'English, Japanese',
+    workload: 58,
+    perfTrend: [{ name: 'W1', val: 91 }, { name: 'W4', val: 94.3 }],
+    tasksTrend: [{ name: 'W1', val: 4 }, { name: 'W4', val: 10 }]
+  },
+  {
+    id: 'AI-EMP-012',
+    name: 'Lead Gen AI',
+    role: 'Sales Representative',
+    roleBadge: 'Sales Rep AI',
+    roleBadgeColor: 'bg-emerald-500/10 text-emerald-450 border-emerald-500/20',
+    dept: 'Marketing',
+    status: 'Active',
+    perf: 97.4,
+    tasks: 112,
+    lastActive: '2 min ago',
+    desc: 'Identifies qualified B2B contacts, validates email sequences, and executes inbound outreach pipeline.',
+    brandAccess: '4 Brands',
+    joinedOn: 'May 20, 2025',
+    languages: 'English',
+    workload: 80,
+    perfTrend: [{ name: 'W1', val: 94 }, { name: 'W4', val: 97.4 }],
+    tasksTrend: [{ name: 'W1', val: 12 }, { name: 'W4', val: 20 }]
+  },
+  {
+    id: 'AI-EMP-013',
+    name: 'Copywriter Assistant AI',
+    role: 'Content Writer',
+    roleBadge: 'Content Writer AI',
+    roleBadgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    dept: 'Content Creation',
+    status: 'Idle',
+    perf: 91.1,
+    tasks: 52,
+    lastActive: '20 min ago',
+    desc: 'Edits drafts, verifies spelling guidelines, and checks marketing copy compliance.',
+    brandAccess: '2 Brands',
+    joinedOn: 'May 22, 2025',
+    languages: 'English',
+    workload: 45,
+    perfTrend: [{ name: 'W1', val: 89 }, { name: 'W4', val: 91.1 }],
+    tasksTrend: [{ name: 'W1', val: 4 }, { name: 'W4', val: 8 }]
+  },
+  {
+    id: 'AI-EMP-014',
+    name: 'Competitor Tracker AI',
+    role: 'Data Analyst',
+    roleBadge: 'Data Analyst AI',
+    roleBadgeColor: 'bg-amber-500/10 text-amber-450 border-amber-500/20',
+    dept: 'Analytics',
+    status: 'Offline',
+    perf: 89.2,
+    tasks: 33,
+    lastActive: '6 hours ago',
+    desc: 'Monitors competitor pricing models and indexes global social sentiment patterns.',
+    brandAccess: '3 Brands',
+    joinedOn: 'May 24, 2025',
+    languages: 'English',
+    workload: 35,
+    perfTrend: [{ name: 'W1', val: 86 }, { name: 'W4', val: 89.2 }],
+    tasksTrend: [{ name: 'W1', val: 2 }, { name: 'W4', val: 6 }]
+  },
+  {
+    id: 'AI-EMP-015',
+    name: 'Affiliate Partner AI',
+    role: 'Sales Representative',
+    roleBadge: 'Sales Rep AI',
+    roleBadgeColor: 'bg-emerald-500/10 text-emerald-450 border-emerald-500/20',
+    dept: 'Marketing',
+    status: 'Active',
+    perf: 96.0,
+    tasks: 79,
+    lastActive: '5 min ago',
+    desc: 'Onboards affiliate partners, audits promo link attributions, and computes commissions payouts.',
+    brandAccess: '4 Brands',
+    joinedOn: 'May 26, 2025',
+    languages: 'English',
+    workload: 68,
+    perfTrend: [{ name: 'W1', val: 92 }, { name: 'W4', val: 96.0 }],
+    tasksTrend: [{ name: 'W1', val: 8 }, { name: 'W4', val: 14 }]
+  },
+  {
+    id: 'AI-EMP-016',
+    name: 'Multivariate Tester AI',
+    role: 'UX Architect',
+    roleBadge: 'UX Architect AI',
+    roleBadgeColor: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+    dept: 'Analytics',
+    status: 'Active',
+    perf: 95.1,
+    tasks: 82,
+    lastActive: '4 min ago',
+    desc: 'Sets up multivariate split testing experiments and compiles statistical significance charts.',
+    brandAccess: '3 Brands',
+    joinedOn: 'May 28, 2025',
+    languages: 'English',
+    workload: 72,
+    perfTrend: [{ name: 'W1', val: 91 }, { name: 'W4', val: 95.1 }],
+    tasksTrend: [{ name: 'W1', val: 8 }, { name: 'W4', val: 16 }]
+  },
+  {
+    id: 'AI-EMP-017',
+    name: 'Technical Editor AI',
+    role: 'Content Writer',
+    roleBadge: 'Content Writer AI',
+    roleBadgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    dept: 'Content Creation',
+    status: 'Active',
+    perf: 98.0,
+    tasks: 94,
+    lastActive: '1 min ago',
+    desc: 'Compiles developer API documentation, writes detailed system tutorials, and structures guidebooks.',
+    brandAccess: '4 Brands',
+    joinedOn: 'Jun 01, 2025',
+    languages: 'English',
+    workload: 85,
+    perfTrend: [{ name: 'W1', val: 95 }, { name: 'W4', val: 98.0 }],
+    tasksTrend: [{ name: 'W1', val: 10 }, { name: 'W4', val: 18 }]
+  },
+  {
+    id: 'AI-EMP-018',
+    name: 'Social Outreach AI',
+    role: 'SEO Specialist',
+    roleBadge: 'SEO Specialist AI',
+    roleBadgeColor: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+    dept: 'Marketing',
+    status: 'Active',
+    perf: 94.7,
+    tasks: 86,
+    lastActive: '7 min ago',
+    desc: 'Filters key social profiles, validates contact info, and tracks collaboration request rates.',
+    brandAccess: '3 Brands',
+    joinedOn: 'Jun 03, 2025',
+    languages: 'English',
+    workload: 64,
+    perfTrend: [{ name: 'W1', val: 91 }, { name: 'W4', val: 94.7 }],
+    tasksTrend: [{ name: 'W1', val: 8 }, { name: 'W4', val: 14 }]
+  },
+  {
+    id: 'AI-EMP-019',
+    name: 'Database Optimizer AI',
+    role: 'Systems Engineer',
+    roleBadge: 'Systems Eng AI',
+    roleBadgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    dept: 'Analytics',
+    status: 'Active',
+    perf: 99.1,
+    tasks: 154,
+    lastActive: '2 min ago',
+    desc: 'Monitors query speeds, structures table index patterns, and schedules database backups.',
+    brandAccess: '5 Brands',
+    joinedOn: 'Jun 05, 2025',
+    languages: 'English, SQL',
+    workload: 88,
+    perfTrend: [{ name: 'W1', val: 97 }, { name: 'W4', val: 99.1 }],
+    tasksTrend: [{ name: 'W1', val: 15 }, { name: 'W4', val: 30 }]
+  },
+  {
+    id: 'AI-EMP-020',
+    name: 'Slogan Copywriter AI',
+    role: 'Content Writer',
+    roleBadge: 'Content Writer AI',
+    roleBadgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    dept: 'Content Creation',
+    status: 'Idle',
+    perf: 93.5,
+    tasks: 48,
+    lastActive: '18 min ago',
+    desc: 'Drafts brand slogans, crafts engaging ad headers, and optimizes landing page copy guidelines.',
+    brandAccess: '3 Brands',
+    joinedOn: 'Jun 08, 2025',
+    languages: 'English',
+    workload: 40,
+    perfTrend: [{ name: 'W1', val: 90 }, { name: 'W4', val: 93.5 }],
+    tasksTrend: [{ name: 'W1', val: 4 }, { name: 'W4', val: 8 }]
+  },
+  {
+    id: 'AI-EMP-021',
+    name: 'ROAS Auditor AI',
+    role: 'Growth Specialist',
+    roleBadge: 'Growth Specialist AI',
+    roleBadgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    dept: 'Marketing',
+    status: 'Active',
+    perf: 96.8,
+    tasks: 74,
+    lastActive: '6 min ago',
+    desc: 'Audits cost-per-click values, indexes display ad keywords, and compiles campaign ROAS metrics.',
+    brandAccess: '4 Brands',
+    joinedOn: 'Jun 10, 2025',
+    languages: 'English',
+    workload: 66,
+    perfTrend: [{ name: 'W1', val: 93 }, { name: 'W4', val: 96.8 }],
+    tasksTrend: [{ name: 'W1', val: 6 }, { name: 'W4', val: 12 }]
+  },
+  {
+    id: 'AI-EMP-022',
+    name: 'Interface Compliance AI',
+    role: 'UX Architect',
+    roleBadge: 'UX Architect AI',
+    roleBadgeColor: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+    dept: 'Analytics',
+    status: 'Active',
+    perf: 95.9,
+    tasks: 91,
+    lastActive: '4 min ago',
+    desc: 'Verifies visual compliance, validates element alignments, and schedules interface diagnostics.',
+    brandAccess: '3 Brands',
+    joinedOn: 'Jun 12, 2025',
+    languages: 'English',
+    workload: 75,
+    perfTrend: [{ name: 'W1', val: 91 }, { name: 'W4', val: 95.9 }],
+    tasksTrend: [{ name: 'W1', val: 8 }, { name: 'W4', val: 16 }]
+  },
+  {
+    id: 'AI-EMP-023',
+    name: 'Newsletter Editor AI',
+    role: 'Email Marketer',
+    roleBadge: 'Email Marketer AI',
+    roleBadgeColor: 'bg-emerald-500/10 text-emerald-450 border-emerald-500/20',
+    dept: 'Marketing',
+    status: 'Offline',
+    perf: 86.4,
+    tasks: 29,
+    lastActive: '8 hours ago',
+    desc: 'Structures layout systems, schedules weekly newsletter sendouts, and checks bounce rates.',
+    brandAccess: '2 Brands',
+    joinedOn: 'Jun 14, 2025',
+    languages: 'English',
+    workload: 30,
+    perfTrend: [{ name: 'W1', val: 84 }, { name: 'W4', val: 86.4 }],
+    tasksTrend: [{ name: 'W1', val: 2 }, { name: 'W4', val: 6 }]
+  },
+  {
+    id: 'AI-EMP-024',
+    name: 'Friction Optimizer AI',
+    role: 'Growth Specialist',
+    roleBadge: 'Growth Specialist AI',
+    roleBadgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    dept: 'Marketing',
+    status: 'Active',
+    perf: 97.6,
+    tasks: 104,
+    lastActive: '3 min ago',
+    desc: 'Optimizes sales funnels, monitors checkout friction factors, and recommends layout adaptations.',
+    brandAccess: '4 Brands',
+    joinedOn: 'Jun 16, 2025',
+    languages: 'English, German',
+    workload: 78,
+    perfTrend: [{ name: 'W1', val: 94 }, { name: 'W4', val: 97.6 }],
+    tasksTrend: [{ name: 'W1', val: 10 }, { name: 'W4', val: 20 }]
+  }
+];
+
 interface DigitalLegendsDetailsProps {
   setActiveTab: (tab: 'overview' | 'mission-control' | 'brands' | 'brand-details') => void;
 }
@@ -566,7 +1105,43 @@ function DigitalLegendsDetails({ setActiveTab }: DigitalLegendsDetailsProps) {
 export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
   const [leftSidebarOpen, setLeftSidebarOpen] = React.useState(false);
   const [rightSidebarOpen, setRightSidebarOpen] = React.useState(false);
-  const [activeTab, setActiveTab] = React.useState<'overview' | 'mission-control' | 'brands' | 'brand-details'>('overview');
+  const [activeTab, setActiveTab] = React.useState<'overview' | 'mission-control' | 'brands' | 'brand-details' | 'ai-employees'>('overview');
+  const [employeesList, setEmployeesList] = React.useState(aiEmployeesList);
+  const [selectedEmpId, setSelectedEmpId] = React.useState('AI-EMP-001');
+  const [empPage, setEmpPage] = React.useState(1);
+  const [empSearch, setEmpSearch] = React.useState('');
+  const [empTab, setEmpTab] = React.useState('All Employees');
+  const [showAddEmpModal, setShowAddEmpModal] = React.useState(false);
+
+  // Helper variables for filtering AI Employees
+  const filteredEmployees = employeesList.filter(emp => {
+    const matchesSearch = emp.name.toLowerCase().includes(empSearch.toLowerCase()) || 
+                          emp.role.toLowerCase().includes(empSearch.toLowerCase()) ||
+                          emp.dept.toLowerCase().includes(empSearch.toLowerCase());
+    
+    if (!matchesSearch) return false;
+
+    if (empTab === 'Active') return emp.status === 'Active';
+    if (empTab === 'Idle') return emp.status === 'Idle';
+    if (empTab === 'Offline') return emp.status === 'Offline';
+    
+    return true;
+  });
+
+  const sortedEmployees = [...filteredEmployees].sort((a, b) => {
+    if (empTab === 'By Department') {
+      return a.dept.localeCompare(b.dept);
+    }
+    if (empTab === 'By Brand') {
+      return a.brandAccess.localeCompare(b.brandAccess);
+    }
+    return 0;
+  });
+
+  const itemsPerPage = 8;
+  const totalPages = Math.max(1, Math.ceil(sortedEmployees.length / itemsPerPage));
+  const paginatedEmployees = sortedEmployees.slice((empPage - 1) * itemsPerPage, empPage * itemsPerPage);
+  const selectedEmp = employeesList.find(emp => emp.id === selectedEmpId) || employeesList[0];
 
   const sparkBrandsData = [
     { val: 1 },
@@ -643,7 +1218,7 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
             <SidebarItem icon={LayoutDashboard} label="Overview" active={activeTab === 'overview'} onClick={() => { setActiveTab('overview'); setLeftSidebarOpen(false); }} />
             <SidebarItem icon={Target} label="Mission Control" active={activeTab === 'mission-control'} onClick={() => { setActiveTab('mission-control'); setLeftSidebarOpen(false); }} />
             <SidebarItem icon={Folder} label="Brands" active={activeTab === 'brands' || activeTab === 'brand-details'} onClick={() => { setActiveTab('brands'); setLeftSidebarOpen(false); }} />
-            <SidebarItem icon={Users} label="AI Employees" />
+            <SidebarItem icon={Users} label="AI Employees" active={activeTab === 'ai-employees'} onClick={() => { setActiveTab('ai-employees'); setLeftSidebarOpen(false); }} />
             <SidebarItem icon={GitBranch} label="Workflows" />
             <SidebarItem icon={BarChart2} label="Analytics" />
             <SidebarItem icon={Activity} label="Live Activity" />
@@ -1461,6 +2036,494 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
                       <ArrowUpRight size={12} />
                     </button>
                   </div>
+                </div>
+
+              </div>
+
+            </div>
+          </>
+        ) : activeTab === 'ai-employees' ? (
+          <>
+            {/* TOP BAR / HEADER */}
+            <header className="px-4 md:px-8 pt-6 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4 z-10 shrink-0">
+              <div>
+                <h1 className="text-3xl font-extrabold text-white uppercase tracking-[0.08em] font-outfit leading-tight">
+                  AI Employees
+                </h1>
+                <p className="text-[11px] text-slate-400 mt-1 font-medium">
+                  Manage your AI workforce. Monitor performance, assign tasks, and optimize results.
+                </p>
+              </div>
+
+              {/* Header Right Actions */}
+              <div className="flex items-center space-x-4">
+                {/* Search Bar */}
+                <div className="relative hidden sm:block">
+                  <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                  <input 
+                    type="text" 
+                    value={empSearch}
+                    onChange={(e) => { setEmpSearch(e.target.value); setEmpPage(1); }}
+                    placeholder="Search AI employees..." 
+                    className="w-56 bg-slate-950/40 border border-slate-800/80 hover:border-slate-700/60 rounded-xl py-1.5 pl-10 pr-10 text-[11px] text-slate-200 focus:outline-none transition-colors"
+                  />
+                  <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[9px] text-slate-500 font-bold border border-slate-800 rounded px-1 py-0.2 bg-slate-900/50">
+                    ⌘ K
+                  </span>
+                </div>
+
+                {/* Notifications Bell */}
+                <button className="relative w-8 h-8 rounded-xl border border-slate-800/80 bg-slate-950/20 flex items-center justify-center text-slate-455 hover:text-white transition-colors cursor-pointer">
+                  <Bell size={15} />
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_6px_rgba(239,68,68,0.8)]"></span>
+                </button>
+
+                {/* + Add AI Employee Button */}
+                <button 
+                  onClick={() => setShowAddEmpModal(true)}
+                  className="flex items-center space-x-2 px-4 py-1.5 bg-blue-600 hover:bg-blue-750 text-white rounded-xl text-xs font-bold transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] cursor-pointer"
+                >
+                  <Plus size={14} />
+                  <span>Add AI Employee</span>
+                </button>
+              </div>
+            </header>
+
+            {/* SCROLLABLE ECOSYSTEM VIEW AREA */}
+            <div className="flex-1 overflow-y-auto px-4 md:px-8 pb-8 z-10 custom-scrollbar">
+              
+              {/* FIVE STAT CARDS */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+                
+                {/* Stat 1: Total AI Employees */}
+                <div className="bg-[#0b1220]/45 border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between shadow-lg relative overflow-hidden group hover:border-slate-700/85 transition-all">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total AI Employees</span>
+                    <div className="w-8 h-8 rounded-lg bg-purple-950/40 border border-purple-900/50 flex items-center justify-center text-purple-400">
+                      <Users size={15} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-black text-white font-outfit">
+                      <CountUp end={employeesList.length} duration={1.5} />
+                    </div>
+                    <span className="text-[9px] text-slate-500 font-bold block mt-1">Across all brands</span>
+                  </div>
+                </div>
+
+                {/* Stat 2: Active Now */}
+                <div className="bg-[#0b1220]/45 border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between shadow-lg relative overflow-hidden group hover:border-slate-700/85 transition-all">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Active Now</span>
+                    <div className="w-8 h-8 rounded-lg bg-teal-950/40 border border-teal-900/50 flex items-center justify-center text-teal-455">
+                      <Activity size={15} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-black text-white font-outfit">
+                      <CountUp end={employeesList.filter(e => e.status === 'Active').length} duration={1.5} />
+                    </div>
+                    <span className="text-[9px] text-teal-400 font-bold block mt-1">
+                      {Math.round((employeesList.filter(e => e.status === 'Active').length / employeesList.length) * 100)}% of total
+                    </span>
+                  </div>
+                </div>
+
+                {/* Stat 3: Tasks Completed */}
+                <div className="bg-[#0b1220]/45 border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between shadow-lg relative overflow-hidden group hover:border-slate-700/85 transition-all">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tasks Completed</span>
+                    <div className="w-8 h-8 rounded-lg bg-yellow-950/40 border border-yellow-900/50 flex items-center justify-center text-yellow-455">
+                      <CheckCircle2 size={15} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-black text-white font-outfit">
+                      <CountUp end={employeesList.reduce((sum, e) => sum + e.tasks, 0)} separator="," duration={1.5} />
+                    </div>
+                    <span className="text-[9px] text-slate-500 font-bold block mt-1">This Month</span>
+                  </div>
+                </div>
+
+                {/* Stat 4: Avg. Performance */}
+                <div className="bg-[#0b1220]/45 border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between shadow-lg relative overflow-hidden group hover:border-slate-700/85 transition-all">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Avg. Performance</span>
+                    <div className="w-8 h-8 rounded-lg bg-blue-950/40 border border-blue-900/50 flex items-center justify-center text-blue-455">
+                      <TrendingUp size={15} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-black text-white font-outfit">
+                      <CountUp end={96.8} decimals={1} suffix="%" duration={1.5} />
+                    </div>
+                    <span className="text-[9px] text-slate-500 font-bold block mt-1">This Month</span>
+                  </div>
+                </div>
+
+                {/* Stat 5: Total Hours Saved */}
+                <div className="bg-[#0b1220]/45 border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between shadow-lg relative overflow-hidden group hover:border-slate-700/85 transition-all">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Hours Saved</span>
+                    <div className="w-8 h-8 rounded-lg bg-cyan-950/40 border border-cyan-900/50 flex items-center justify-center text-cyan-400">
+                      <Clock size={15} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-black text-white font-outfit">
+                      <CountUp end={532} suffix="h" duration={1.5} />
+                    </div>
+                    <span className="text-[9px] text-slate-500 font-bold block mt-1">This Month</span>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* FILTERS & SEARCH ROW */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+                
+                {/* Horizontal tabs */}
+                <div className="flex items-center space-x-1.5 bg-[#0b1220]/60 border border-slate-800/60 p-1 rounded-xl w-full sm:w-auto overflow-x-auto scrollbar-none shrink-0">
+                  {['All Employees', 'By Department', 'By Brand', 'Active', 'Idle', 'Offline'].map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => { setEmpTab(tab); setEmpPage(1); }}
+                      className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                        empTab === tab
+                          ? 'bg-[#10b981]/15 text-[#10b981] border border-[#10b981]/30'
+                          : 'border border-transparent text-slate-400 hover:text-white hover:bg-slate-800/35'
+                      }`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Search / Filter Buttons */}
+                <div className="flex items-center space-x-3 w-full sm:w-auto justify-end">
+                  <button className="flex items-center space-x-2 px-4 py-1.5 bg-[#0b1220]/45 border border-slate-800/80 rounded-xl text-xs font-bold text-slate-350 hover:text-white hover:border-slate-700 transition-colors cursor-pointer">
+                    <SlidersHorizontal size={13} className="text-slate-400" />
+                    <span>Filters</span>
+                  </button>
+
+                  <div className="flex items-center space-x-2 px-3.5 py-1.5 border border-slate-800/85 bg-slate-950/30 rounded-xl text-[10px] font-bold text-slate-350 hover:border-slate-700 transition-all cursor-pointer">
+                    <span>Sort by: Newest</span>
+                    <ChevronDown size={10} className="text-slate-500" />
+                  </div>
+                </div>
+
+              </div>
+
+              {/* MAIN CONTENT SPLIT GRID LAYOUT */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                {/* Left side: AI Employees Table (Col Span 2) */}
+                <div className="lg:col-span-2 bg-[#0B1120]/45 border border-slate-800/80 rounded-2xl p-5 flex flex-col justify-between shadow-xl relative overflow-hidden group hover:border-slate-700/60 transition-all duration-300 min-h-[560px]">
+                  <div className="overflow-x-auto w-full">
+                    <table className="w-full text-left border-collapse min-w-[700px]">
+                      <thead>
+                        <tr className="border-b border-slate-900/60 pb-3">
+                          <th className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pb-3">AI Employee</th>
+                          <th className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pb-3">Role</th>
+                          <th className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pb-3">Department</th>
+                          <th className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pb-3">Status</th>
+                          <th className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pb-3">Performance</th>
+                          <th className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pb-3">Tasks</th>
+                          <th className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pb-3">Last Active</th>
+                          <th className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pb-3"></th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-900/40">
+                        {paginatedEmployees.length === 0 ? (
+                          <tr>
+                            <td colSpan={8} className="text-center py-12 text-slate-500 text-xs font-semibold">
+                              No AI Employees found matching the filter criteria.
+                            </td>
+                          </tr>
+                        ) : (
+                          paginatedEmployees.map((emp) => (
+                            <tr 
+                              key={emp.id} 
+                              onClick={() => setSelectedEmpId(emp.id)}
+                              className={`group/row hover:bg-slate-900/35 cursor-pointer transition-colors ${
+                                selectedEmpId === emp.id ? 'bg-slate-900/45 border-l-2 border-emerald-500' : ''
+                              }`}
+                            >
+                              {/* AI Employee Avatar & Name */}
+                              <td className="py-3.5 pr-2">
+                                <div className="flex items-center space-x-3.5">
+                                  <div className="relative w-9 h-9 rounded-xl bg-purple-950/40 border border-purple-800/30 flex items-center justify-center text-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.15)] group-hover/row:border-purple-600/50 transition-colors shrink-0">
+                                    <span className="relative flex h-2 w-2 absolute -top-0.5 -right-0.5 z-10">
+                                      <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                                        emp.status === 'Active' ? 'bg-emerald-400' : emp.status === 'Idle' ? 'bg-amber-400' : 'bg-slate-400'
+                                      }`}></span>
+                                      <span className={`relative inline-flex rounded-full h-2 w-2 ${
+                                        emp.status === 'Active' ? 'bg-emerald-500' : emp.status === 'Idle' ? 'bg-amber-500' : 'bg-slate-500'
+                                      }`}></span>
+                                    </span>
+                                    <Monitor size={15} />
+                                  </div>
+                                  <div>
+                                    <h4 className="text-xs font-bold text-white leading-tight group-hover/row:text-emerald-450 transition-colors leading-none">{emp.name}</h4>
+                                    <span className="text-[8.5px] text-slate-500 leading-none mt-1.5 block uppercase tracking-wider">{emp.id}</span>
+                                  </div>
+                                </div>
+                              </td>
+
+                              {/* Role */}
+                              <td className="py-3.5 pr-2">
+                                <div className="flex items-center space-x-2">
+                                  <span className="text-xs font-bold text-slate-300">{emp.role}</span>
+                                  <span className={`px-2 py-0.5 border rounded text-[7.5px] font-bold uppercase tracking-wider leading-none shrink-0 ${emp.roleBadgeColor}`}>
+                                    AI
+                                  </span>
+                                </div>
+                              </td>
+
+                              {/* Department */}
+                              <td className="py-3.5 pr-2 text-xs font-semibold text-slate-400">
+                                {emp.dept}
+                              </td>
+
+                              {/* Status Badge */}
+                              <td className="py-3.5 pr-2">
+                                <span className={`inline-flex items-center space-x-1.5 px-2.5 py-0.8 rounded-full border text-[9px] font-black tracking-wide ${
+                                  emp.status === 'Active' 
+                                    ? 'bg-emerald-950/40 border-emerald-900/50 text-emerald-450' 
+                                    : emp.status === 'Idle'
+                                      ? 'bg-amber-950/40 border-amber-900/50 text-amber-450'
+                                      : 'bg-slate-900/60 border-slate-800 text-slate-450'
+                                }`}>
+                                  <span className={`w-1.5 h-1.5 rounded-full ${
+                                    emp.status === 'Active' ? 'bg-emerald-500' : emp.status === 'Idle' ? 'bg-amber-500' : 'bg-slate-500'
+                                  }`} />
+                                  <span>{emp.status}</span>
+                                </span>
+                              </td>
+
+                              {/* Performance Micro Chart */}
+                              <td className="py-3.5 pr-2">
+                                <div className="flex items-center space-x-3.5">
+                                  <span className="text-xs font-bold text-white font-outfit">{emp.perf}%</span>
+                                  <div className="w-16 h-6 overflow-hidden shrink-0">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                      <AreaChart data={emp.perfTrend} margin={{ top: 2, right: 2, left: 2, bottom: 2 }}>
+                                        <defs>
+                                          <linearGradient id={`tblGrad-${emp.id}`} x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor={emp.perf >= 95 ? '#10b981' : '#eab308'} stopOpacity={0.2}/>
+                                            <stop offset="95%" stopColor={emp.perf >= 95 ? '#10b981' : '#eab308'} stopOpacity={0}/>
+                                          </linearGradient>
+                                        </defs>
+                                        <Area 
+                                          type="monotone" 
+                                          dataKey="val" 
+                                          stroke={emp.perf >= 95 ? '#10b981' : '#eab308'} 
+                                          strokeWidth={1.2} 
+                                          fillOpacity={1} 
+                                          fill={`url(#tblGrad-${emp.id})`} 
+                                        />
+                                      </AreaChart>
+                                    </ResponsiveContainer>
+                                  </div>
+                                </div>
+                              </td>
+
+                              {/* Tasks completed */}
+                              <td className="py-3.5 pr-2 leading-none">
+                                <span className="text-xs font-bold text-white font-outfit">{emp.tasks}</span>
+                                <span className="text-[7.5px] text-slate-500 leading-none mt-1 block font-medium">This Month</span>
+                              </td>
+
+                              {/* Last active time */}
+                              <td className="py-3.5 pr-2 text-xs font-semibold text-slate-400">
+                                {emp.lastActive}
+                              </td>
+
+                              {/* Action dots */}
+                              <td className="py-3.5 text-right">
+                                <button className="p-1 text-slate-500 hover:text-white rounded-lg hover:bg-slate-800/40 transition-colors shrink-0">
+                                  <MoreVertical size={14} />
+                                </button>
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Pagination Bar */}
+                  {totalPages > 1 && (
+                    <div className="flex items-center justify-between border-t border-slate-900/60 pt-4 mt-4 w-full shrink-0">
+                      <span className="text-[10px] text-slate-450 font-bold">
+                        Showing {Math.min(sortedEmployees.length, (empPage - 1) * itemsPerPage + 1)} to {Math.min(sortedEmployees.length, empPage * itemsPerPage)} of {sortedEmployees.length} AI Employees
+                      </span>
+                      
+                      <div className="flex items-center space-x-1.5">
+                        <button 
+                          onClick={() => setEmpPage(prev => Math.max(1, prev - 1))}
+                          disabled={empPage === 1}
+                          className="px-2.5 py-1 border border-slate-800 bg-slate-950/20 text-slate-400 hover:text-white disabled:opacity-40 disabled:hover:text-slate-400 rounded-lg text-[10px] font-bold cursor-pointer transition-all"
+                        >
+                          &lt;
+                        </button>
+                        {Array.from({ length: totalPages }).map((_, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => setEmpPage(idx + 1)}
+                            className={`w-7 h-7 rounded-lg text-[10px] font-bold transition-all cursor-pointer ${
+                              empPage === idx + 1
+                                ? 'bg-blue-600 text-white font-black shadow-[0_0_8px_rgba(37,99,235,0.4)]'
+                                : 'border border-slate-800 bg-slate-950/20 text-slate-400 hover:text-white'
+                            }`}
+                          >
+                            {idx + 1}
+                          </button>
+                        ))}
+                        <button 
+                          onClick={() => setEmpPage(prev => Math.min(totalPages, prev + 1))}
+                          disabled={empPage === totalPages}
+                          className="px-2.5 py-1 border border-slate-800 bg-slate-950/20 text-slate-400 hover:text-white disabled:opacity-40 disabled:hover:text-slate-400 rounded-lg text-[10px] font-bold cursor-pointer transition-all"
+                        >
+                          &gt;
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Right side: AI Employee Profile Panel Sidebar Card */}
+                <div className="bg-[#0B1120]/45 border border-slate-800/80 rounded-2xl p-5 flex flex-col shadow-xl relative overflow-hidden group hover:border-slate-700/60 transition-all duration-300">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/[0.015] rounded-full blur-3xl pointer-events-none"></div>
+                  
+                  <div className="flex flex-col items-center text-center border-b border-slate-900/60 pb-5 mb-5 shrink-0">
+                    {/* Glowing Purple Robot Circle Avatar */}
+                    <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-purple-950/35 to-indigo-950/45 border-2 border-purple-500/35 flex items-center justify-center text-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.35)] mb-3">
+                      <span className="relative flex h-3.5 w-3.5 absolute bottom-0.5 right-0.5 z-10">
+                        <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                          selectedEmp.status === 'Active' ? 'bg-emerald-400' : selectedEmp.status === 'Idle' ? 'bg-amber-400' : 'bg-slate-400'
+                        }`}></span>
+                        <span className={`relative inline-flex rounded-full h-3.5 w-3.5 ${
+                          selectedEmp.status === 'Active' ? 'bg-emerald-500' : selectedEmp.status === 'Idle' ? 'bg-amber-500' : 'bg-slate-500'
+                        }`}></span>
+                      </span>
+                      {/* Stylized Robot Shape */}
+                      <svg className="w-10 h-10 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <rect x="3" y="11" width="18" height="10" rx="3" />
+                        <path d="M12 2v4" />
+                        <path d="M8 5h8" />
+                        <circle cx="9" cy="15" r="1.5" className="fill-purple-400" />
+                        <circle cx="15" cy="15" r="1.5" className="fill-purple-400" />
+                        <path d="M12 18h.01" />
+                      </svg>
+                    </div>
+
+                    <h3 className="text-base font-extrabold text-white font-outfit">{selectedEmp.name}</h3>
+                    <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold mt-1">{selectedEmp.id}</span>
+
+                    <span className={`inline-flex items-center space-x-1.5 px-3 py-1 rounded-full border text-[9px] font-black tracking-wide mt-3 ${
+                      selectedEmp.status === 'Active' 
+                        ? 'bg-emerald-950/40 border-emerald-900/50 text-emerald-455 shadow-[0_0_10px_rgba(16,185,129,0.15)]' 
+                        : selectedEmp.status === 'Idle'
+                          ? 'bg-amber-950/40 border-amber-900/50 text-amber-455'
+                          : 'bg-slate-900/60 border-slate-800 text-slate-450'
+                    }`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${
+                        selectedEmp.status === 'Active' ? 'bg-emerald-500' : selectedEmp.status === 'Idle' ? 'bg-amber-500' : 'bg-slate-500'
+                      }`} />
+                      <span>{selectedEmp.status}</span>
+                    </span>
+
+                    <p className="text-[10.5px] text-slate-350 font-medium leading-relaxed mt-4 px-2">
+                      {selectedEmp.desc}
+                    </p>
+                  </div>
+
+                  {/* Metadata key-value list */}
+                  <div className="space-y-3.5 border-b border-slate-900/60 pb-5 mb-5 text-[11px] font-semibold shrink-0">
+                    {[
+                      { label: 'Role', val: selectedEmp.role },
+                      { label: 'Department', val: selectedEmp.dept },
+                      { label: 'Brand Access', val: selectedEmp.brandAccess },
+                      { label: 'Joined On', val: selectedEmp.joinedOn },
+                      { label: 'Languages', val: selectedEmp.languages },
+                      { 
+                        label: 'Workload', 
+                        val: (
+                          <div className="flex items-center space-x-2 w-28 justify-end">
+                            <span className="font-outfit font-black text-white">{selectedEmp.workload}%</span>
+                            <div className="w-14 h-1.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                              <div 
+                                style={{ width: `${selectedEmp.workload}%` }} 
+                                className={`h-full rounded-full ${
+                                  selectedEmp.workload >= 80 ? 'bg-red-500' : selectedEmp.workload >= 60 ? 'bg-amber-500' : 'bg-emerald-500'
+                                }`} 
+                              />
+                            </div>
+                          </div>
+                        )
+                      }
+                    ].map((row, idx) => (
+                      <div key={idx} className="flex justify-between items-center px-0.5">
+                        <span className="text-slate-500">{row.label}</span>
+                        <span className="text-slate-200 text-right">{row.val}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Charts & Diagnostics */}
+                  <div className="flex-1 space-y-4">
+                    
+                    {/* Diagnostic 1: Performance */}
+                    <div className="bg-slate-950/20 border border-slate-900/60 rounded-xl p-3.5 flex flex-col justify-between h-24">
+                      <div className="flex justify-between items-center leading-none">
+                        <span className="text-[8.5px] font-bold text-slate-500 uppercase tracking-widest">Performance This Month</span>
+                        <span className="text-[8.5px] font-bold text-emerald-455 font-outfit">+4.3% vs last month</span>
+                      </div>
+                      <div className="flex items-end justify-between mt-2 flex-1 gap-4">
+                        <span className="text-2xl font-black text-white font-outfit leading-none">{selectedEmp.perf}%</span>
+                        <div className="w-32 h-8 overflow-hidden shrink-0">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <AreaChart data={selectedEmp.perfTrend} margin={{ top: 2, right: 2, left: 2, bottom: 2 }}>
+                              <defs>
+                                <linearGradient id={`sideGrad-${selectedEmp.id}`} x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.35}/>
+                                  <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                                </linearGradient>
+                              </defs>
+                              <Area type="monotone" dataKey="val" stroke="#10b981" strokeWidth={1.5} fillOpacity={1} fill={`url(#sideGrad-${selectedEmp.id})`} />
+                            </AreaChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Diagnostic 2: Tasks Completed */}
+                    <div className="bg-slate-950/20 border border-slate-900/60 rounded-xl p-3.5 flex flex-col justify-between h-24">
+                      <div className="flex justify-between items-center leading-none">
+                        <span className="text-[8.5px] font-bold text-slate-500 uppercase tracking-widest">Tasks Completed</span>
+                        <span className="text-[8.5px] font-bold text-emerald-455 font-outfit">+18 vs last month</span>
+                      </div>
+                      <div className="flex items-end justify-between mt-2 flex-1 gap-4">
+                        <span className="text-2xl font-black text-white font-outfit leading-none">{selectedEmp.tasks}</span>
+                        <div className="w-32 h-8 overflow-hidden shrink-0">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <BarChart data={selectedEmp.tasksTrend} margin={{ top: 2, right: 2, left: 2, bottom: 2 }}>
+                              <Bar dataKey="val" fill="#0ea5e9" radius={[2, 2, 0, 0]} className="shadow-[0_0_6px_rgba(14,165,233,0.3)]" />
+                            </BarChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action button */}
+                    <button className="w-full py-2.5 bg-cyan-950/15 border border-cyan-900/40 hover:bg-cyan-600 hover:text-white rounded-xl text-[10px] font-black text-cyan-400 uppercase tracking-widest transition-all cursor-pointer text-center flex items-center justify-center space-x-1.5 shadow-[0_0_12px_rgba(6,182,212,0.05)] hover:shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+                      <span>View Full Profile</span>
+                      <ArrowUpRight size={12} />
+                    </button>
+
+                  </div>
+
                 </div>
 
               </div>
@@ -2514,6 +3577,111 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
           </div>
         </div>
       </aside>
+
+      {/* ADD AI EMPLOYEE MODAL */}
+      {showAddEmpModal && (
+        <div className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-[#0b1220] border border-slate-800 rounded-2xl w-full max-w-md p-6 relative shadow-2xl animate-fade-in text-left">
+            <button 
+              onClick={() => setShowAddEmpModal(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 hover:bg-slate-800/40 rounded-lg transition-colors cursor-pointer"
+            >
+              <X size={16} />
+            </button>
+            <h3 className="text-base font-bold text-white uppercase tracking-wider mb-2 font-outfit">Add AI Employee</h3>
+            <p className="text-[11px] text-slate-400 mb-4 font-semibold">Deploy a new AI Employee to coordinate business operations.</p>
+            
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              const name = formData.get('name') as string;
+              const role = formData.get('role') as string;
+              const dept = formData.get('dept') as string;
+              
+              if (!name || !role || !dept) return;
+
+              const newEmp = {
+                id: `AI-EMP-0${employeesList.length + 1}`,
+                name: name.endsWith('AI') ? name : `${name} AI`,
+                role,
+                roleBadge: role,
+                roleBadgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+                dept,
+                status: 'Active' as const,
+                perf: 99.2,
+                tasks: 0,
+                lastActive: 'Just now',
+                desc: `Highly customized AI Employee built to automate ${dept.toLowerCase()} assignments.`,
+                brandAccess: '1 Brand',
+                joinedOn: 'May 18, 2026',
+                languages: 'English',
+                workload: 10,
+                perfTrend: [
+                  { name: 'W1', val: 95 },
+                  { name: 'W2', val: 97 },
+                  { name: 'W3', val: 98 },
+                  { name: 'W4', val: 99.2 }
+                ],
+                tasksTrend: [
+                  { name: 'W1', val: 0 },
+                  { name: 'W2', val: 0 },
+                  { name: 'W3', val: 0 },
+                  { name: 'W4', val: 0 }
+                ]
+              };
+              
+              setEmployeesList(prev => [newEmp, ...prev]);
+              setSelectedEmpId(newEmp.id);
+              setShowAddEmpModal(false);
+            }} className="space-y-4">
+              <div>
+                <label className="block text-[10px] font-bold text-slate-455 uppercase tracking-wider mb-1.5">Employee Name</label>
+                <input 
+                  required
+                  name="name"
+                  type="text" 
+                  placeholder="e.g. Content Writer, SEO Agent" 
+                  className="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500/50 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-bold text-slate-455 uppercase tracking-wider mb-1.5">Role / Title</label>
+                <input 
+                  required
+                  name="role"
+                  type="text" 
+                  placeholder="e.g. SEO Specialist, Brand Designer" 
+                  className="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500/50 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-bold text-slate-455 uppercase tracking-wider mb-1.5">Department</label>
+                <select 
+                  required
+                  name="dept"
+                  className="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500/50 transition-colors"
+                >
+                  <option value="Content Creation">Content Creation</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Analytics">Analytics</option>
+                  <option value="Customer Support">Customer Support</option>
+                </select>
+              </div>
+
+              <div className="pt-2">
+                <button 
+                  type="submit"
+                  className="w-full py-2.5 bg-blue-600 hover:bg-blue-750 text-white rounded-xl text-xs font-bold transition-all shadow-[0_0_15px_rgba(37,99,235,0.45)] cursor-pointer"
+                >
+                  Deploy AI Employee
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
     </div>
   );
