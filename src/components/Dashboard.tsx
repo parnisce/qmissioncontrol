@@ -16,6 +16,7 @@ import {
 } from 'recharts';
 import CountUpRaw from 'react-countup';
 import GaugeComponentRaw from 'react-gauge-component';
+import { WorldMap } from './WorldMap';
 
 // Resolve default import mismatch in Vite dev server
 const CountUp = (CountUpRaw as any).default || CountUpRaw;
@@ -874,39 +875,50 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
 
                 {/* Stat 5: System Health */}
                 <div className="bg-[#0b1220]/45 border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between shadow-lg relative overflow-hidden group hover:border-slate-700/85 transition-all">
-                  <div>
-                    <div className="flex items-center space-x-2.5 mb-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-teal-950/40 border border-teal-900/50 flex items-center justify-center text-teal-400">
-                        <Activity size={15} />
-                      </div>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">System Health</span>
+                  <div className="flex items-center space-x-2.5 mb-1 shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-teal-950/40 border border-teal-900/50 flex items-center justify-center text-teal-400">
+                      <Activity size={15} />
                     </div>
-                    <div className="flex items-baseline space-x-1.5">
-                      <span className="text-2xl font-black text-white font-outfit">100%</span>
-                      <span className="text-[9px] text-teal-400 font-bold flex items-center">
-                        <span className="w-1.5 h-1.5 bg-teal-500 rounded-full mr-1 animate-pulse" /> All Systems Online
-                      </span>
-                    </div>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">System Health</span>
                   </div>
-                  {/* Speed Meter Speedometer Gauge */}
-                  <div className="relative w-full h-10 mt-1 flex items-center justify-center overflow-hidden">
-                    <div className="w-24 h-16 relative -mt-3.5 scale-[1.25]">
+
+                  <div className="relative w-full h-24 flex items-center justify-center overflow-hidden -mt-1 shrink-0">
+                    <div className="w-28 h-20 relative scale-[1.1]">
                       <GaugeComponent
                         type="semicircle"
                         arc={{
-                          width: 0.15,
+                          width: 0.1,
                           padding: 0.02,
                           subArcs: [
-                            { limit: 30, color: '#f43f5e', showTick: false },
-                            { limit: 70, color: '#eab308', showTick: false },
-                            { limit: 100, color: '#14b8a6', showTick: false }
+                            { limit: 20, color: '#ef4444' },
+                            { limit: 40, color: '#f97316' },
+                            { limit: 60, color: '#eab308' },
+                            { limit: 80, color: '#3b82f6' },
+                            { limit: 100, color: '#0ea5e9' }
                           ]
                         }}
-                        pointer={{ type: 'needle', width: 0.05, length: 0.8, color: '#14b8a6' }}
-                        labels={{ valueLabel: { formatTextValue: () => '' }, tickLabels: { type: "outer", hideMinMax: true, defaultTickValueConfig: { hide: true }, defaultTickLineConfig: { hide: true } } }}
+                        pointer={{ type: 'needle', color: '#fff', width: 3, length: 0.7, elastic: true }}
+                        labels={{
+                          valueLabel: { formatTextValue: () => '' },
+                          tickLabels: {
+                            type: 'outer',
+                            ticks: [{ value: 20 }, { value: 40 }, { value: 60 }, { value: 80 }],
+                            defaultTickValueConfig: { style: { fontSize: '8px', fill: '#94a3b8', textShadow: 'none' } }
+                          }
+                        }}
                         value={100}
                       />
+                      <div className="absolute bottom-0 left-0 right-0 text-center">
+                        <div className="text-xl font-black text-white font-outfit leading-none">100%</div>
+                        <div className="text-[8px] text-teal-400 font-bold mt-0.5 leading-none">Online</div>
+                      </div>
                     </div>
+                  </div>
+
+                  <div className="text-center mt-1 shrink-0">
+                    <span className="text-[8.5px] text-slate-400 font-medium">
+                      All Systems Operational
+                    </span>
                   </div>
                 </div>
 
@@ -925,61 +937,11 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
                     </h2>
                     
                     {/* SVG Map Visualizer Layout */}
-                    <div className="relative h-56 w-full flex items-center justify-center mt-3">
-                      <svg className="absolute inset-0 w-full h-full opacity-[0.25] text-teal-500/30" viewBox="0 0 1000 500" fill="none">
-                        {/* Clustered coordinates rendering stylized digital grid continents */}
-                        {[
-                          // North America
-                          { cx: 80, cy: 80 }, { cx: 100, cy: 90 }, { cx: 120, cy: 75 }, { cx: 140, cy: 85 }, { cx: 160, cy: 100 },
-                          { cx: 90, cy: 110 }, { cx: 110, cy: 125 }, { cx: 130, cy: 135 }, { cx: 150, cy: 120 }, { cx: 170, cy: 110 },
-                          { cx: 100, cy: 150 }, { cx: 120, cy: 160 }, { cx: 140, cy: 170 }, { cx: 160, cy: 150 }, { cx: 180, cy: 140 },
-                          { cx: 110, cy: 190 }, { cx: 130, cy: 200 }, { cx: 150, cy: 210 }, { cx: 170, cy: 185 }, { cx: 190, cy: 175 },
-                          { cx: 120, cy: 230 }, { cx: 140, cy: 240 }, { cx: 160, cy: 250 }, { cx: 180, cy: 220 }, { cx: 200, cy: 200 },
-                          
-                          // South America
-                          { cx: 210, cy: 260 }, { cx: 220, cy: 280 }, { cx: 230, cy: 300 }, { cx: 240, cy: 320 }, { cx: 250, cy: 340 },
-                          { cx: 220, cy: 270 }, { cx: 235, cy: 295 }, { cx: 245, cy: 315 }, { cx: 255, cy: 335 }, { cx: 260, cy: 360 },
-                          { cx: 230, cy: 290 }, { cx: 240, cy: 310 }, { cx: 250, cy: 330 }, { cx: 260, cy: 350 }, { cx: 270, cy: 380 },
-                          { cx: 240, cy: 330 }, { cx: 250, cy: 350 }, { cx: 260, cy: 370 }, { cx: 270, cy: 400 }, { cx: 280, cy: 420 },
-                          { cx: 250, cy: 370 }, { cx: 260, cy: 390 }, { cx: 270, cy: 410 }, { cx: 275, cy: 430 }, { cx: 270, cy: 450 },
-
-                          // Africa
-                          { cx: 480, cy: 250 }, { cx: 490, cy: 260 }, { cx: 500, cy: 270 }, { cx: 510, cy: 280 }, { cx: 520, cy: 290 },
-                          { cx: 490, cy: 280 }, { cx: 500, cy: 295 }, { cx: 510, cy: 310 }, { cx: 520, cy: 320 }, { cx: 530, cy: 330 },
-                          { cx: 500, cy: 310 }, { cx: 510, cy: 330 }, { cx: 525, cy: 345 }, { cx: 535, cy: 360 }, { cx: 540, cy: 370 },
-                          { cx: 510, cy: 340 }, { cx: 520, cy: 360 }, { cx: 530, cy: 375 }, { cx: 535, cy: 390 }, { cx: 530, cy: 405 },
-
-                          // Europe / Asia
-                          { cx: 450, cy: 100 }, { cx: 470, cy: 90 }, { cx: 490, cy: 80 }, { cx: 510, cy: 95 }, { cx: 530, cy: 110 },
-                          { cx: 460, cy: 120 }, { cx: 480, cy: 130 }, { cx: 500, cy: 115 }, { cx: 520, cy: 135 }, { cx: 540, cy: 150 },
-                          { cx: 550, cy: 120 }, { cx: 570, cy: 130 }, { cx: 590, cy: 110 }, { cx: 610, cy: 140 }, { cx: 630, cy: 125 },
-                          { cx: 560, cy: 150 }, { cx: 580, cy: 160 }, { cx: 600, cy: 145 }, { cx: 620, cy: 165 }, { cx: 640, cy: 150 },
-                          { cx: 650, cy: 130 }, { cx: 670, cy: 140 }, { cx: 690, cy: 120 }, { cx: 710, cy: 150 }, { cx: 730, cy: 135 },
-                          { cx: 660, cy: 160 }, { cx: 680, cy: 170 }, { cx: 700, cy: 155 }, { cx: 720, cy: 175 }, { cx: 740, cy: 160 },
-                          
-                          // Southern & Eastern Asia
-                          { cx: 580, cy: 190 }, { cx: 600, cy: 200 }, { cx: 620, cy: 210 }, { cx: 640, cy: 195 }, { cx: 660, cy: 185 },
-                          { cx: 590, cy: 220 }, { cx: 610, cy: 230 }, { cx: 630, cy: 240 }, { cx: 650, cy: 225 }, { cx: 670, cy: 215 },
-                          { cx: 680, cy: 200 }, { cx: 700, cy: 210 }, { cx: 720, cy: 220 }, { cx: 740, cy: 205 }, { cx: 760, cy: 195 },
-                          { cx: 690, cy: 230 }, { cx: 710, cy: 240 }, { cx: 730, cy: 250 }, { cx: 750, cy: 235 }, { cx: 770, cy: 225 },
-                          
-                          // Australia
-                          { cx: 750, cy: 350 }, { cx: 770, cy: 360 }, { cx: 790, cy: 345 }, { cx: 810, cy: 355 }, { cx: 830, cy: 370 },
-                          { cx: 760, cy: 380 }, { cx: 780, cy: 390 }, { cx: 800, cy: 375 }, { cx: 820, cy: 395 }, { cx: 840, cy: 380 },
-                          { cx: 770, cy: 410 }, { cx: 790, cy: 420 }, { cx: 810, cy: 405 }, { cx: 830, cy: 425 }, { cx: 850, cy: 410 }
-                        ].map((dot, idx) => (
-                          <circle 
-                            key={idx}
-                            cx={dot.cx * 1.1 + 40}
-                            cy={dot.cy * 0.95 + 15}
-                            r="2.5"
-                            className="fill-teal-500/25 stroke-teal-400/40 stroke-0.5"
-                          />
-                        ))}
-                      </svg>
+                    <div className="relative h-64 w-full flex items-center justify-center mt-3">
+                      <WorldMap className="absolute inset-0 w-full h-full opacity-[0.7] text-teal-500/20 hover:text-teal-400/30 transition-all duration-300" />
 
                       {/* Map Status Overlay Right Card */}
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 w-52 bg-slate-950/80 border border-slate-800/80 rounded-xl p-4 shadow-xl backdrop-blur-sm space-y-3 z-20">
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 w-52 bg-slate-950/85 border border-slate-800/80 rounded-xl p-4 shadow-xl backdrop-blur-sm space-y-3 z-20 hover:border-slate-700/60 transition-all">
                         <div className="flex items-center space-x-2">
                           <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
