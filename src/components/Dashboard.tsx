@@ -138,7 +138,7 @@ const brandsData = [
 ];
 
 interface DigitalLegendsDetailsProps {
-  setActiveTab: (tab: 'overview' | 'brands' | 'brand-details') => void;
+  setActiveTab: (tab: 'overview' | 'mission-control' | 'brands' | 'brand-details') => void;
 }
 
 function DigitalLegendsDetails({ setActiveTab }: DigitalLegendsDetailsProps) {
@@ -565,7 +565,7 @@ function DigitalLegendsDetails({ setActiveTab }: DigitalLegendsDetailsProps) {
 export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
   const [leftSidebarOpen, setLeftSidebarOpen] = React.useState(false);
   const [rightSidebarOpen, setRightSidebarOpen] = React.useState(false);
-  const [activeTab, setActiveTab] = React.useState<'overview' | 'brands' | 'brand-details'>('overview');
+  const [activeTab, setActiveTab] = React.useState<'overview' | 'mission-control' | 'brands' | 'brand-details'>('overview');
 
   console.log("Dashboard Render Check");
   console.log("CountUp type:", typeof CountUp, CountUp);
@@ -608,7 +608,7 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
         <div className="flex-1 overflow-y-auto custom-scrollbar px-2">
           <SidebarSection title="Navigation">
             <SidebarItem icon={LayoutDashboard} label="Overview" active={activeTab === 'overview'} onClick={() => { setActiveTab('overview'); setLeftSidebarOpen(false); }} />
-            <SidebarItem icon={Target} label="Mission Control" />
+            <SidebarItem icon={Target} label="Mission Control" active={activeTab === 'mission-control'} onClick={() => { setActiveTab('mission-control'); setLeftSidebarOpen(false); }} />
             <SidebarItem icon={Folder} label="Brands" active={activeTab === 'brands' || activeTab === 'brand-details'} onClick={() => { setActiveTab('brands'); setLeftSidebarOpen(false); }} />
             <SidebarItem icon={Users} label="AI Employees" />
             <SidebarItem icon={GitBranch} label="Workflows" />
@@ -648,6 +648,308 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
       <main className="flex-1 flex flex-col overflow-hidden relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-900/40 via-[#020617] to-[#020617] pointer-events-none"></div>
         {activeTab === 'overview' ? (
+          <>
+            {/* EXECUTIVE ECOSYSTEM OVERVIEW HEADER */}
+            <header className="px-4 md:px-8 pt-6 md:pt-8 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4 z-10 shrink-0">
+              <div className="flex items-start justify-between w-full md:w-auto">
+                <div>
+                  <div className="flex items-center space-x-2 text-[10px] font-bold text-slate-400 tracking-widest uppercase mb-2">
+                    <span>Ecosystem</span>
+                    <ChevronRight size={12} className="text-slate-600" />
+                    <span className="text-white">Executive Overview</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight font-outfit">Ecosystem Overview</h1>
+                    <Sparkles size={20} className="text-cyan-400 md:w-6 md:h-6" />
+                  </div>
+                  <p className="text-slate-400 text-xs md:text-sm mt-1">High-level orchestration of active brands, agent workforce, and central pipeline.</p>
+                </div>
+                
+                {/* Hamburger menu for small screens */}
+                <div className="flex items-center space-x-2 lg:hidden">
+                  <button onClick={() => setLeftSidebarOpen(true)} className="p-2 bg-slate-800/80 border border-slate-700/50 rounded-lg text-slate-400 hover:text-white">
+                    <Menu size={18} />
+                  </button>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between md:justify-end space-x-3 w-full md:w-auto border-t border-slate-800/40 md:border-t-0 pt-3 md:pt-0">
+                <button className="flex items-center space-x-2 px-3 md:px-4 py-2 bg-slate-800/80 border border-slate-700/50 rounded-lg text-xs md:text-sm font-medium hover:bg-slate-700 transition-colors">
+                  <Command size={14} className="text-slate-400" />
+                  <span className="hidden sm:inline">Command Center</span>
+                  <span className="sm:hidden">Command</span>
+                </button>
+                <button 
+                  onClick={() => setActiveTab('mission-control')}
+                  className="flex items-center space-x-2 px-3 md:px-4 py-2 bg-cyan-600 hover:bg-cyan-700 border border-cyan-500/50 rounded-lg text-xs md:text-sm font-medium text-white transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] cursor-pointer"
+                >
+                  <Target size={14} />
+                  <span>Mission Control Hub</span>
+                </button>
+                
+                {/* System Control Mobile Toggle */}
+                <button onClick={() => setRightSidebarOpen(true)} className="xl:hidden p-2 bg-slate-800/80 border border-slate-700/50 rounded-lg text-slate-400 hover:text-white">
+                  <SlidersHorizontal size={18} />
+                </button>
+              </div>
+            </header>
+
+            {/* SCROLLABLE ECOSYSTEM VIEW AREA */}
+            <div className="flex-1 overflow-y-auto px-4 md:px-8 pb-8 z-10 custom-scrollbar">
+              
+              {/* FLEET KPI CARDS */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                
+                {/* Card 1: Unified Active Brands */}
+                <div className="bg-[#0B1120]/80 border border-slate-800/60 rounded-xl p-5 flex items-center justify-between shadow-lg relative overflow-hidden group hover:border-slate-700 transition-all">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl pointer-events-none"></div>
+                  <div>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Active Brands</span>
+                    <div className="text-2xl font-bold text-white font-outfit">3 Brands</div>
+                    <span className="text-[10px] text-cyan-400 font-semibold flex items-center mt-1">
+                      <CircleDot size={10} className="mr-1 animate-pulse" /> Fully Connected
+                    </span>
+                  </div>
+                  <div className="w-12 h-12 bg-cyan-950/40 border border-cyan-900/40 rounded-xl flex items-center justify-center text-cyan-400">
+                    <Folder size={20} />
+                  </div>
+                </div>
+
+                {/* Card 2: Total Active Workforce */}
+                <div className="bg-[#0B1120]/80 border border-slate-800/60 rounded-xl p-5 flex items-center justify-between shadow-lg relative overflow-hidden group hover:border-slate-700 transition-all">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/5 rounded-full blur-xl pointer-events-none"></div>
+                  <div>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Agent Workforce</span>
+                    <div className="text-2xl font-bold text-white font-outfit">24 AI Agents</div>
+                    <span className="text-[10px] text-purple-400 font-semibold flex items-center mt-1">
+                      <Zap size={10} className="mr-1" /> Active Nodes
+                    </span>
+                  </div>
+                  <div className="w-12 h-12 bg-purple-950/40 border border-purple-900/40 rounded-xl flex items-center justify-center text-purple-400">
+                    <Users size={20} />
+                  </div>
+                </div>
+
+                {/* Card 3: Ecosystem ROI Valuation */}
+                <div className="bg-[#0B1120]/80 border border-slate-800/60 rounded-xl p-5 flex items-center justify-between shadow-lg relative overflow-hidden group hover:border-slate-700 transition-all">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl pointer-events-none"></div>
+                  <div>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Weekly Cost Saved</span>
+                    <div className="text-2xl font-bold text-white font-outfit">$42,150</div>
+                    <span className="text-[10px] text-emerald-450 font-semibold flex items-center mt-1">
+                      <TrendingUp size={10} className="mr-1" /> 8.9x ROI Ratio
+                    </span>
+                  </div>
+                  <div className="w-12 h-12 bg-emerald-950/40 border border-emerald-900/40 rounded-xl flex items-center justify-center text-emerald-450">
+                    <CreditCard size={20} />
+                  </div>
+                </div>
+
+                {/* Card 4: System Integrity */}
+                <div className="bg-[#0B1120]/80 border border-slate-800/60 rounded-xl p-5 flex items-center justify-between shadow-lg relative overflow-hidden group hover:border-slate-700 transition-all">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 rounded-full blur-xl pointer-events-none"></div>
+                  <div>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">System integrity</span>
+                    <div className="text-2xl font-bold text-white font-outfit">100.0%</div>
+                    <span className="text-[10px] text-teal-400 font-semibold flex items-center mt-1">
+                      <CheckCircle2 size={10} className="mr-1 text-teal-450" /> Operational
+                    </span>
+                  </div>
+                  <div className="w-12 h-12 bg-teal-950/40 border border-teal-900/40 rounded-xl flex items-center justify-center text-teal-405">
+                    <Activity size={20} />
+                  </div>
+                </div>
+
+              </div>
+
+              {/* ECOSYSTEM BRANDS DIRECTORY GRID */}
+              <h2 className="text-sm font-bold text-white uppercase tracking-wider mb-4 font-outfit flex items-center">
+                <Folder size={14} className="text-cyan-400 mr-2" /> Connected Brand Ecosystem
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                
+                {/* Brand 1: Digital Legends */}
+                <div className="bg-[#0B1120]/60 border border-slate-800/60 rounded-2xl p-6 flex flex-col justify-between shadow-lg relative overflow-hidden group hover:border-cyan-500/35 transition-all duration-300">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+                  
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-12 rounded-xl bg-[#121c2c] border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold font-outfit text-lg shadow-[0_0_15px_rgba(6,182,212,0.15)] group-hover:scale-105 transition-transform duration-300">
+                        DL
+                      </div>
+                      <span className="px-2.5 py-0.5 border border-cyan-500/20 bg-cyan-500/10 rounded text-[9px] font-bold text-cyan-400 uppercase tracking-widest leading-none">
+                        Live Pipeline
+                      </span>
+                    </div>
+
+                    <h3 className="text-base font-bold text-white mb-1 group-hover:text-cyan-450 transition-colors">Digital Legends</h3>
+                    <p className="text-[11px] text-slate-400 leading-relaxed mb-4">
+                      AI Automation & Business Growth Platform. Powering automated digital channels with continuous intelligent agent workflows.
+                    </p>
+
+                    <div className="grid grid-cols-3 gap-2 border-t border-slate-800/80 pt-4 mb-6">
+                      <div className="text-center">
+                        <div className="text-sm font-bold text-white">10</div>
+                        <div className="text-[8px] text-slate-500 uppercase tracking-wider font-semibold">AI Employees</div>
+                      </div>
+                      <div className="text-center border-x border-slate-800/80">
+                        <div className="text-sm font-bold text-white">18</div>
+                        <div className="text-[8px] text-slate-500 uppercase tracking-wider font-semibold">Workflows</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-sm font-bold text-white">256</div>
+                        <div className="text-[8px] text-slate-500 uppercase tracking-wider font-semibold">Tasks Done</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button 
+                    onClick={() => setActiveTab('brand-details')}
+                    className="w-full py-2.5 bg-cyan-950/20 border border-cyan-900/60 hover:bg-cyan-600 hover:text-white rounded-xl text-xs font-bold text-cyan-400 transition-all cursor-pointer text-center flex items-center justify-center space-x-1.5"
+                  >
+                    <span>Manage Brand Hub</span>
+                    <ArrowUpRight size={14} />
+                  </button>
+                </div>
+
+                {/* Brand 2: One Global Fasting */}
+                <div className="bg-[#0B1120]/60 border border-slate-800/60 rounded-2xl p-6 flex flex-col justify-between shadow-lg relative overflow-hidden group hover:border-emerald-500/35 transition-all duration-300">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+                  
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-12 rounded-xl bg-[#132824] border border-emerald-500/20 flex items-center justify-center text-emerald-450 font-bold group-hover:scale-105 transition-transform duration-300">
+                        <Globe size={20} />
+                      </div>
+                      <span className="px-2.5 py-0.5 border border-emerald-500/20 bg-emerald-500/10 rounded text-[9px] font-bold text-emerald-450 uppercase tracking-widest leading-none">
+                        Live Pipeline
+                      </span>
+                    </div>
+
+                    <h3 className="text-base font-bold text-white mb-1 group-hover:text-emerald-450 transition-colors">One Global Fasting</h3>
+                    <p className="text-[11px] text-slate-400 leading-relaxed mb-4">
+                      Uniting the world through fasting. Automated trackers, community message moderation, and localized analytics.
+                    </p>
+
+                    <div className="grid grid-cols-3 gap-2 border-t border-slate-800/80 pt-4 mb-6">
+                      <div className="text-center">
+                        <div className="text-sm font-bold text-white">4</div>
+                        <div className="text-[8px] text-slate-500 uppercase tracking-wider font-semibold">AI Employees</div>
+                      </div>
+                      <div className="text-center border-x border-slate-800/80">
+                        <div className="text-sm font-bold text-white">5</div>
+                        <div className="text-[8px] text-slate-500 uppercase tracking-wider font-semibold">Workflows</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-sm font-bold text-white">87</div>
+                        <div className="text-[8px] text-slate-500 uppercase tracking-wider font-semibold">Tasks Done</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button 
+                    onClick={() => setActiveTab('brands')}
+                    className="w-full py-2.5 bg-emerald-950/20 border border-emerald-900/60 hover:bg-emerald-600 hover:text-white rounded-xl text-xs font-bold text-emerald-450 transition-all cursor-pointer text-center flex items-center justify-center space-x-1.5"
+                  >
+                    <span>View Brand Details</span>
+                    <ArrowUpRight size={14} />
+                  </button>
+                </div>
+
+                {/* Brand 3: Boutique Manager */}
+                <div className="bg-[#0B1120]/60 border border-slate-800/60 rounded-2xl p-6 flex flex-col justify-between shadow-lg relative overflow-hidden group hover:border-purple-500/35 transition-all duration-300">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-3xl pointer-events-none"></div>
+                  
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-12 rounded-xl bg-[#23173d] border border-purple-500/20 flex items-center justify-center text-purple-400 font-bold group-hover:scale-105 transition-transform duration-300">
+                        <Store size={20} />
+                      </div>
+                      <span className="px-2.5 py-0.5 border border-slate-700 bg-slate-800/50 rounded text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none">
+                        Ready
+                      </span>
+                    </div>
+
+                    <h3 className="text-base font-bold text-white mb-1 group-hover:text-purple-400 transition-colors">Boutique Manager</h3>
+                    <p className="text-[11px] text-slate-400 leading-relaxed mb-4">
+                      Intelligent Shopify workflow engine. Synchronizes orders, triggers marketing lists, and generates AI customer replies.
+                    </p>
+
+                    <div className="grid grid-cols-3 gap-2 border-t border-slate-800/80 pt-4 mb-6">
+                      <div className="text-center">
+                        <div className="text-sm font-bold text-slate-500">-</div>
+                        <div className="text-[8px] text-slate-500 uppercase tracking-wider font-semibold">AI Employees</div>
+                      </div>
+                      <div className="text-center border-x border-slate-800/80">
+                        <div className="text-sm font-bold text-slate-500">-</div>
+                        <div className="text-[8px] text-slate-500 uppercase tracking-wider font-semibold">Workflows</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-sm font-bold text-slate-500">-</div>
+                        <div className="text-[8px] text-slate-500 uppercase tracking-wider font-semibold">Tasks Done</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button className="w-full py-2.5 bg-slate-900/30 border border-slate-800/80 hover:bg-slate-850 hover:text-white rounded-xl text-xs font-bold text-slate-400 transition-all cursor-pointer text-center flex items-center justify-center space-x-1.5">
+                    <span>Deploy Agent Workforce</span>
+                    <Plus size={14} />
+                  </button>
+                </div>
+
+              </div>
+
+              {/* LIVE OPERATIONS FEED */}
+              <div className="bg-[#0B1120]/75 border border-slate-800/60 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/[0.02] rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h2 className="text-sm font-bold text-white uppercase tracking-wider font-outfit flex items-center">
+                      <Activity size={14} className="text-cyan-400 mr-2 animate-pulse" /> Central Operations Console
+                    </h2>
+                    <p className="text-[10px] text-slate-400 mt-1">Real-time log events streaming from all active brand pipelines.</p>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2 text-[10px] font-bold text-cyan-400 bg-cyan-950/20 border border-cyan-900/40 px-3 py-1 rounded-full">
+                    <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-ping"></span>
+                    <span>Live Stream</span>
+                  </div>
+                </div>
+
+                <div className="font-mono text-xs text-slate-300 bg-[#020617]/95 border border-slate-800/80 rounded-xl p-4 space-y-2 h-48 overflow-y-auto custom-scrollbar">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-cyan-500">[19:42:01]</span>
+                    <span className="text-purple-400">[Maya - DL]</span>
+                    <span className="text-slate-450">Generated monthly SEO blog posts for Digital Legends</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-cyan-500">[19:41:45]</span>
+                    <span className="text-purple-400">[Dexter - DL]</span>
+                    <span className="text-slate-450">Synchronized lead capture webhooks into main CRM database</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-cyan-500">[19:38:12]</span>
+                    <span className="text-emerald-400">[Leo - Fasting]</span>
+                    <span className="text-slate-450">Updated copy for Autophagy Fasting Facebook Ads campaign</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-cyan-500">[19:35:50]</span>
+                    <span className="text-purple-400">[Zara - DL]</span>
+                    <span className="text-slate-450">Social Media analysis completed for Q2 Strategy Prep</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-cyan-500">[19:30:11]</span>
+                    <span className="text-slate-400">[System]</span>
+                    <span className="text-cyan-400 font-semibold">Health check ok. Active agent workforce running at 100% capacity.</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </>
+        ) : activeTab === 'mission-control' ? (
           <>
             {/* HEADER */}
             <header className="px-4 md:px-8 pt-6 md:pt-8 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4 z-10 shrink-0">
