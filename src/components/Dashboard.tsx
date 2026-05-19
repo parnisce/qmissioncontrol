@@ -2547,6 +2547,7 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
   const [empSearch, setEmpSearch] = React.useState('');
   const [empTab, setEmpTab] = React.useState('All Employees');
   const [showAddEmpModal, setShowAddEmpModal] = React.useState(false);
+  const [showAddBrandModal, setShowAddBrandModal] = React.useState(false);
 
   // Helper variables for filtering AI Employees
   const filteredEmployees = employeesList.filter(emp => {
@@ -4647,7 +4648,7 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
                 </div>
 
                 {/* Add New Brand Button */}
-                <button className="flex items-center space-x-2 px-3 md:px-4 py-2 bg-[#0070f3] hover:bg-[#0060df] rounded-lg text-xs md:text-sm font-medium text-white transition-colors shadow-[0_0_15px_rgba(0,112,243,0.3)]">
+                <button onClick={() => setShowAddBrandModal(true)} className="flex items-center space-x-2 px-3 md:px-4 py-2 bg-[#0070f3] hover:bg-[#0060df] rounded-lg text-xs md:text-sm font-medium text-white transition-colors shadow-[0_0_15px_rgba(0,112,243,0.3)] cursor-pointer">
                   <Plus size={14} />
                   <span>Add New Brand</span>
                 </button>
@@ -5022,6 +5023,61 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
           </div>
         </div>
       </aside>
+
+      {/* ADD BRAND MODAL */}
+      {showAddBrandModal && (
+        <div className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-[#0b1220] border border-slate-800 rounded-2xl w-full max-w-md p-6 relative shadow-2xl animate-fade-in text-left">
+            <button 
+              onClick={() => setShowAddBrandModal(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 hover:bg-slate-800/40 rounded-lg transition-colors cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                <Sparkles size={20} className="text-blue-400" />
+              </div>
+              <h2 className="text-xl font-bold text-white">Create Personal AI Assistant</h2>
+            </div>
+            
+            <p className="text-sm text-slate-400 mb-6">How would you like to initialize your new AI assistant today?</p>
+
+            <div className="space-y-4">
+              <button 
+                onClick={() => {
+                  setShowAddBrandModal(false);
+                }}
+                className="w-full bg-slate-900/50 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/50 rounded-xl p-4 flex items-start space-x-4 transition-all text-left cursor-pointer group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Plus size={20} className="text-blue-400" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Create Brand</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed">Initialize a comprehensive brand identity and build a long-term AI team.</p>
+                </div>
+              </button>
+
+              <button 
+                onClick={() => {
+                  setShowAddBrandModal(false);
+                }}
+                className="w-full bg-slate-900/50 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 rounded-xl p-4 flex items-start space-x-4 transition-all text-left cursor-pointer group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <CheckCircle2 size={20} className="text-emerald-400" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">Create a Task</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed">Assign a quick, one-off objective to a specialized AI without creating a full brand.</p>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ADD AI EMPLOYEE MODAL */}
       {showAddEmpModal && (
