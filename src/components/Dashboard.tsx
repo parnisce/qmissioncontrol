@@ -20,6 +20,7 @@ import CountUpRaw from 'react-countup';
 import GaugeComponentRaw from 'react-gauge-component';
 import { WorldMap } from './WorldMap';
 import { supabase } from '../lib/supabase';
+import ClaudetChat from './ClaudetChat';
 
 // Resolve default import mismatch in Vite dev server
 const CountUp = (CountUpRaw as any).default || CountUpRaw;
@@ -2540,7 +2541,7 @@ function MarketplaceView() {
 export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
   const [leftSidebarOpen, setLeftSidebarOpen] = React.useState(false);
   const [rightSidebarOpen, setRightSidebarOpen] = React.useState(false);
-  const [activeTab, setActiveTab] = React.useState<'overview' | 'mission-control' | 'brands' | 'brand-details' | 'brand-tasks' | 'ai-employees' | 'workflows' | 'analytics' | 'live-activity' | 'marketplace'>('overview');
+  const [activeTab, setActiveTab] = React.useState<'overview' | 'mission-control' | 'brands' | 'brand-details' | 'brand-tasks' | 'ai-employees' | 'workflows' | 'analytics' | 'live-activity' | 'marketplace' | 'assistant-chat'>('overview');
   const [employeesList, setEmployeesList] = React.useState(aiEmployeesList);
   const [selectedEmpId, setSelectedEmpId] = React.useState('AI-EMP-001');
   const [empPage, setEmpPage] = React.useState(1);
@@ -2655,7 +2656,7 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
           <SidebarSection title="Navigation">
             <SidebarItem icon={LayoutDashboard} label="Overview" active={activeTab === 'overview'} onClick={() => { setActiveTab('overview'); setLeftSidebarOpen(false); }} />
             <SidebarItem icon={Target} label="Mission Control" active={activeTab === 'mission-control'} onClick={() => { setActiveTab('mission-control'); setLeftSidebarOpen(false); }} />
-            <SidebarItem icon={Folder} label="Brands" active={activeTab === 'brands' || activeTab === 'brand-details'} onClick={() => { setActiveTab('brands'); setLeftSidebarOpen(false); }} />
+            <SidebarItem icon={Folder} label="Brands" active={activeTab === 'brands' || activeTab === 'brand-details' || activeTab === 'assistant-chat'} onClick={() => { setActiveTab('brands'); setLeftSidebarOpen(false); }} />
             <SidebarItem icon={Users} label="AI Employees" active={activeTab === 'ai-employees'} onClick={() => { setActiveTab('ai-employees'); setLeftSidebarOpen(false); }} />
             <SidebarItem icon={GitBranch} label="Workflows" active={activeTab === 'workflows'} onClick={() => { setActiveTab('workflows'); setLeftSidebarOpen(false); }} />
             <SidebarItem icon={BarChart2} label="Analytics" active={activeTab === 'analytics'} onClick={() => { setActiveTab('analytics'); setLeftSidebarOpen(false); }} />
@@ -4885,6 +4886,8 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
           <LiveActivityView />
         ) : activeTab === 'marketplace' ? (
           <MarketplaceView />
+        ) : activeTab === 'assistant-chat' ? (
+          <ClaudetChat onBack={() => setActiveTab('brands')} />
         ) : null}
       </main>
 
@@ -5132,6 +5135,7 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
                         setShowAddBrandModal(false);
                         setAddBrandStep(1);
                         setAssistantName('');
+                        setActiveTab('assistant-chat');
                       }}
                       className="w-full py-2.5 bg-cyan-950/40 text-cyan-400 text-xs font-bold rounded-lg border border-cyan-900/50 group-hover:bg-cyan-600 group-hover:text-white transition-colors cursor-pointer flex items-center justify-center space-x-2"
                     >
