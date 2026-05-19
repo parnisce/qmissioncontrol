@@ -8,7 +8,7 @@ import {
   Menu, X, Folder, CreditCard, Search, Bell, Grid, List, ArrowLeft, ExternalLink,
   Zap, Play, Share2, Megaphone, Mail, Filter, MoreHorizontal, ChevronLeft, Download,
   ClipboardList, Star, Eye, Server, Cloud, RefreshCw, AlertTriangle,
-  ShoppingCart, Bookmark, MessageCircle, FileText, Link, Code, ShieldCheck, LineChart as LineChartIcon, LayoutTemplate, ArrowRight, Wand2
+  ShoppingCart, Bookmark, MessageCircle, FileText, Link, Code, ShieldCheck, LineChart as LineChartIcon, LayoutTemplate, ArrowRight, Wand2, Bot
 } from 'lucide-react';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
@@ -2548,6 +2548,8 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
   const [empTab, setEmpTab] = React.useState('All Employees');
   const [showAddEmpModal, setShowAddEmpModal] = React.useState(false);
   const [showAddBrandModal, setShowAddBrandModal] = React.useState(false);
+  const [addBrandStep, setAddBrandStep] = React.useState(1);
+  const [assistantName, setAssistantName] = React.useState('');
 
   // Helper variables for filtering AI Employees
   const filteredEmployees = employeesList.filter(emp => {
@@ -5027,58 +5029,142 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
       {/* ADD BRAND MODAL */}
       {showAddBrandModal && (
         <div className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#0b1220] border border-slate-800 rounded-2xl w-full max-w-[420px] relative shadow-2xl animate-fade-in text-center flex flex-col overflow-hidden">
+          <div className={`bg-[#0b1220] border border-slate-800 rounded-2xl w-full ${addBrandStep === 1 ? 'max-w-[420px]' : 'max-w-2xl'} relative shadow-2xl animate-fade-in text-center flex flex-col overflow-hidden`}>
             
             <button 
-              onClick={() => setShowAddBrandModal(false)}
+              onClick={() => {
+                setShowAddBrandModal(false);
+                setAddBrandStep(1);
+                setAssistantName('');
+              }}
               className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 hover:bg-slate-800/40 rounded-lg transition-colors cursor-pointer z-10"
             >
               <X size={18} />
             </button>
 
-            <div className="p-8 pb-4 flex flex-col items-center">
-              <div className="w-20 h-20 mb-6 relative">
-                 <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur-xl animate-pulse"></div>
-                 <img src="/claudet.png" alt="AI Assistant" className="w-full h-full object-contain relative z-10 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]" />
+            {addBrandStep === 1 ? (
+              <>
+                <div className="p-8 pb-4 flex flex-col items-center">
+                  <div className="w-20 h-20 mb-6 relative flex items-center justify-center">
+                     <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur-xl animate-pulse"></div>
+                     <Bot size={56} className="text-cyan-400 relative z-10 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]" />
+                  </div>
+                  
+                  <h2 className="text-2xl font-bold text-white mb-2 leading-tight">
+                    Create Your Personal<br/>
+                    <span className="text-cyan-400">AI Assistant</span>
+                  </h2>
+                  
+                  <p className="text-xs text-slate-400 mb-8 max-w-[300px] leading-relaxed mx-auto">
+                    Your Personal AI Assistant will help you complete tasks, automate work, and boost your productivity. Let's create yours first.
+                  </p>
+
+                  <div className="w-full text-left mb-6">
+                     <label className="block text-xs font-bold text-slate-300 mb-2">Name your Personal Assistant</label>
+                     <input 
+                       type="text" 
+                       value={assistantName}
+                       onChange={(e) => setAssistantName(e.target.value)}
+                       placeholder="e.g. Alex, My Assistant, Productivity Buddy..." 
+                       className="w-full bg-[#0f172a] border border-slate-800 rounded-lg py-3 px-4 text-sm text-white focus:border-cyan-500 focus:outline-none transition-colors mb-2" 
+                     />
+                     <p className="text-[10px] text-slate-500">You can change this later.</p>
+                  </div>
+
+                  <button 
+                    onClick={() => {
+                      if (assistantName.trim()) {
+                        setAddBrandStep(2);
+                      }
+                    }}
+                    disabled={!assistantName.trim()}
+                    className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 disabled:opacity-50 text-white text-sm font-bold py-3 rounded-lg shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all mb-4 cursor-pointer"
+                  >
+                    Create Personal Assistant
+                  </button>
+                  
+                  <button className="text-xs font-bold text-slate-400 hover:text-cyan-400 transition-colors cursor-pointer mb-6">
+                    Learn More
+                  </button>
+                </div>
+
+                <div className="bg-[#0f172a]/80 border-t border-slate-800/60 p-5 text-left flex items-start space-x-3">
+                  <div className="mt-0.5"><Wand2 size={16} className="text-cyan-400" /></div>
+                  <div>
+                     <h4 className="text-xs font-bold text-slate-200 mb-1.5">Why start with a Personal Assistant?</h4>
+                     <p className="text-[10px] text-slate-400 leading-relaxed">
+                       Your Personal Assistant is designed for you. It helps with your daily tasks, answers questions, and gets things done—your way.
+                     </p>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="p-10 flex flex-col items-center">
+                <div className="w-24 h-24 mb-6 relative">
+                   <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur-xl animate-pulse"></div>
+                   <div className="w-full h-full rounded-full border-2 border-cyan-500/50 overflow-hidden relative z-10 bg-slate-800">
+                     <img src="/claudet.png" alt="Claudet" className="w-full h-full object-cover" />
+                   </div>
+                   <div className="absolute bottom-0 right-0 w-6 h-6 bg-emerald-500 rounded-full border-2 border-[#0b1220] flex items-center justify-center z-20">
+                     <CheckCircle2 size={14} className="text-white" />
+                   </div>
+                </div>
+
+                <h2 className="text-3xl font-bold text-white mb-2">You're All Set!</h2>
+                <p className="text-slate-300 mb-6"><span className="text-cyan-400 font-bold">{assistantName}</span> is ready to help you.</p>
+
+                <p className="text-sm font-bold text-white mb-2">What would you like to do next?</p>
+                <p className="text-xs text-slate-400 mb-8 max-w-[320px] mx-auto leading-relaxed">
+                  You can create a brand to manage your business or start with a task to get things done.
+                </p>
+
+                <div className="grid grid-cols-2 gap-6 w-full mb-8">
+                  <div className="bg-[#0f172a] border border-slate-800/80 rounded-2xl p-6 flex flex-col items-center text-center group hover:border-cyan-500/50 transition-colors">
+                    <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Building2 size={24} className="text-cyan-400" />
+                    </div>
+                    <h3 className="text-sm font-bold text-white mb-2">Create a Brand</h3>
+                    <p className="text-[10px] text-slate-400 mb-6 leading-relaxed flex-1 px-2">
+                      Set up your brand or company to build your team, workflows, and automations.
+                    </p>
+                    <button 
+                      onClick={() => {
+                        setShowAddBrandModal(false);
+                        setAddBrandStep(1);
+                        setAssistantName('');
+                      }}
+                      className="w-full py-2.5 bg-cyan-950/40 text-cyan-400 text-xs font-bold rounded-lg border border-cyan-900/50 group-hover:bg-cyan-600 group-hover:text-white transition-colors cursor-pointer flex items-center justify-center space-x-2"
+                    >
+                      <span>Create Brand</span>
+                      <ArrowRight size={12} />
+                    </button>
+                  </div>
+
+                  <div className="bg-[#0f172a] border border-slate-800/80 rounded-2xl p-6 flex flex-col items-center text-center group hover:border-purple-500/50 transition-colors">
+                    <div className="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <CheckCircle2 size={24} className="text-purple-400" />
+                    </div>
+                    <h3 className="text-sm font-bold text-white mb-2">Create a Task</h3>
+                    <p className="text-[10px] text-slate-400 mb-6 leading-relaxed flex-1 px-2">
+                      Start by creating a task. {assistantName} will help you get it done.
+                    </p>
+                    <button 
+                      onClick={() => {
+                        setShowAddBrandModal(false);
+                        setAddBrandStep(1);
+                        setAssistantName('');
+                      }}
+                      className="w-full py-2.5 bg-purple-950/40 text-purple-400 text-xs font-bold rounded-lg border border-purple-900/50 group-hover:bg-purple-600 group-hover:text-white transition-colors cursor-pointer flex items-center justify-center space-x-2"
+                    >
+                      <span>Create a Task</span>
+                      <ArrowRight size={12} />
+                    </button>
+                  </div>
+                </div>
+
+                <p className="text-[11px] text-slate-500">You can always do both later from the dashboard.</p>
               </div>
-              
-              <h2 className="text-2xl font-bold text-white mb-2 leading-tight">
-                Create Your Personal<br/>
-                <span className="text-cyan-400">AI Assistant</span>
-              </h2>
-              
-              <p className="text-xs text-slate-400 mb-8 max-w-[300px] leading-relaxed mx-auto">
-                Your Personal AI Assistant will help you complete tasks, automate work, and boost your productivity. Let's create yours first.
-              </p>
-
-              <div className="w-full text-left mb-6">
-                 <label className="block text-xs font-bold text-slate-300 mb-2">Name your Personal Assistant</label>
-                 <input type="text" placeholder="e.g. Alex, My Assistant, Productivity Buddy..." className="w-full bg-[#0f172a] border border-slate-800 rounded-lg py-3 px-4 text-sm text-white focus:border-cyan-500 focus:outline-none transition-colors mb-2" />
-                 <p className="text-[10px] text-slate-500">You can change this later.</p>
-              </div>
-
-              <button 
-                onClick={() => setShowAddBrandModal(false)}
-                className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white text-sm font-bold py-3 rounded-lg shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all mb-4 cursor-pointer"
-              >
-                Create Personal Assistant
-              </button>
-              
-              <button className="text-xs font-bold text-slate-400 hover:text-cyan-400 transition-colors cursor-pointer mb-6">
-                Learn More
-              </button>
-            </div>
-
-            <div className="bg-[#0f172a]/80 border-t border-slate-800/60 p-5 text-left flex items-start space-x-3">
-              <div className="mt-0.5"><Wand2 size={16} className="text-cyan-400" /></div>
-              <div>
-                 <h4 className="text-xs font-bold text-slate-200 mb-1.5">Why start with a Personal Assistant?</h4>
-                 <p className="text-[10px] text-slate-400 leading-relaxed">
-                   Your Personal Assistant is designed for you. It helps with your daily tasks, answers questions, and gets things done—your way.
-                 </p>
-              </div>
-            </div>
-
+            )}
           </div>
         </div>
       )}
