@@ -2141,6 +2141,16 @@ function MarketplaceView() {
   const [activeCategory, setActiveCategory] = React.useState('SEO & Growth');
   const [skills, setSkills] = React.useState<any[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [cart, setCart] = React.useState<any[]>([]);
+  const [isCheckout, setIsCheckout] = React.useState(false);
+  
+  const addToCart = (skill: any) => setCart([...cart, skill]);
+  const removeFromCart = (index: number) => setCart(cart.filter((_, i) => i !== index));
+  
+  const cartTotal = cart.reduce((total, item) => {
+    const num = parseInt(item.price.replace(/[^0-9]/g, ''));
+    return total + (isNaN(num) ? 0 : num);
+  }, 0);
   
   const categories = [
     'All Categories', 'SEO & Growth', 'Content & Writing', 'Marketing', 
@@ -2199,6 +2209,85 @@ function MarketplaceView() {
     fetchSkills();
   }, []);
 
+  if (isCheckout) {
+    return (
+      <div className="flex-1 overflow-y-auto custom-scrollbar bg-[#020617] p-8">
+        <div className="max-w-2xl mx-auto">
+          <button onClick={() => setIsCheckout(false)} className="flex items-center space-x-2 text-slate-400 hover:text-white mb-6 transition-colors cursor-pointer">
+            <ArrowLeft size={14} />
+            <span className="text-sm font-medium">Back to Marketplace</span>
+          </button>
+          
+          <div className="flex items-center space-x-3 mb-8">
+            <div className="w-10 h-10 rounded-full bg-purple-950/50 border border-purple-900/50 flex items-center justify-center">
+              <CreditCard size={20} className="text-purple-400" />
+            </div>
+            <h1 className="text-3xl font-bold text-white">Checkout</h1>
+          </div>
+
+          <div className="bg-slate-900/40 border border-slate-800/60 rounded-2xl p-6 mb-6">
+            <h2 className="text-lg font-bold text-white mb-4">Order Summary</h2>
+            <div className="space-y-4 mb-6">
+              {cart.map((item, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                     <div className={`w-8 h-8 rounded ${item.bg} border ${item.ring} flex items-center justify-center`}>
+                        {item.icon && <item.icon size={14} className={item.color} />}
+                     </div>
+                     <div>
+                        <div className="text-sm font-bold text-slate-300">{item.name}</div>
+                        <div className="text-xs text-slate-500">{item.bestFor}</div>
+                     </div>
+                  </div>
+                  <div className="text-sm font-bold text-white">{item.price}</div>
+                </div>
+              ))}
+            </div>
+            <div className="border-t border-slate-800 pt-4 flex items-center justify-between">
+              <span className="text-slate-400">Total Due</span>
+              <span className="text-xl font-bold text-purple-400">${cartTotal.toFixed(2)}</span>
+            </div>
+          </div>
+
+          <div className="bg-slate-900/40 border border-slate-800/60 rounded-2xl p-6">
+            <h2 className="text-lg font-bold text-white mb-4">Payment Details</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">Card Information</label>
+                <div className="relative">
+                  <CreditCard size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+                  <input type="text" placeholder="0000 0000 0000 0000" className="w-full bg-slate-950 border border-slate-800 rounded-lg py-2.5 pl-9 pr-4 text-sm text-white focus:border-purple-500 focus:outline-none transition-colors" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-slate-400 mb-1.5">Expiry Date</label>
+                  <input type="text" placeholder="MM/YY" className="w-full bg-slate-950 border border-slate-800 rounded-lg py-2.5 px-4 text-sm text-white focus:border-purple-500 focus:outline-none transition-colors" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-slate-400 mb-1.5">CVC</label>
+                  <input type="text" placeholder="123" className="w-full bg-slate-950 border border-slate-800 rounded-lg py-2.5 px-4 text-sm text-white focus:border-purple-500 focus:outline-none transition-colors" />
+                </div>
+              </div>
+              
+              <button 
+                onClick={() => {
+                  alert('Payment successful! This is a test checkout.');
+                  setCart([]);
+                  setIsCheckout(false);
+                }}
+                className="w-full mt-4 py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-lg transition-colors shadow-[0_0_15px_rgba(147,51,234,0.3)] flex items-center justify-center space-x-2 cursor-pointer"
+              >
+                <span>Pay ${cartTotal.toFixed(2)}</span>
+                <ArrowRight size={14} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex-1 overflow-y-auto custom-scrollbar bg-[#020617]">
       {/* Top Header */}
@@ -2224,7 +2313,9 @@ function MarketplaceView() {
             </button>
             <button className="relative w-8 h-8 rounded-full border border-slate-800/80 bg-slate-900/50 flex items-center justify-center text-slate-400 hover:text-white transition-colors cursor-pointer">
               <ShoppingCart size={14} />
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-purple-500 rounded-full flex items-center justify-center text-[8px] font-bold text-white shadow-[0_0_8px_rgba(168,85,247,0.6)]">2</span>
+              {cart.length > 0 && (
+                <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-purple-500 rounded-full flex items-center justify-center text-[8px] font-bold text-white shadow-[0_0_8px_rgba(168,85,247,0.6)]">{cart.length}</span>
+              )}
             </button>
           </div>
         </div>
@@ -2325,8 +2416,8 @@ function MarketplaceView() {
                       <div className="text-[9px] text-slate-500 mb-0.5">Starting at</div>
                       <div className="text-[13px] font-bold"><span className={skill.color}>{skill.price.split(' ')[0]}</span> <span className="text-slate-400 text-[10px]">{skill.price.substring(skill.price.indexOf(' '))}</span></div>
                     </div>
-                    <button className="px-3 py-1.5 bg-slate-800/50 hover:bg-cyan-950/40 text-[10px] font-bold text-cyan-400 border border-slate-700 hover:border-cyan-900/50 rounded-lg transition-colors cursor-pointer">
-                      View Details
+                    <button onClick={() => addToCart(skill)} className="px-3 py-1.5 bg-slate-800/50 hover:bg-cyan-950/40 text-[10px] font-bold text-cyan-400 border border-slate-700 hover:border-cyan-900/50 rounded-lg transition-colors cursor-pointer">
+                      Add to Cart
                     </button>
                   </div>
                 </div>
@@ -2388,44 +2479,36 @@ function MarketplaceView() {
                 <ShoppingCart size={14} className="text-slate-400" />
                 <h3 className="text-sm font-bold text-white">My Cart</h3>
               </div>
-              <div className="w-4 h-4 rounded-full bg-purple-500 flex items-center justify-center text-[9px] font-bold text-white">2</div>
+              <div className="w-4 h-4 rounded-full bg-purple-500 flex items-center justify-center text-[9px] font-bold text-white">{cart.length}</div>
             </div>
             
             <div className="space-y-3 mb-4">
-               <div className="flex items-start justify-between">
-                  <div className="flex items-start space-x-2.5">
-                     <div className="w-6 h-6 rounded bg-emerald-950/40 border border-emerald-900/50 flex items-center justify-center shrink-0 mt-0.5">
-                        <Search size={10} className="text-emerald-400" />
-                     </div>
-                     <div>
-                        <div className="text-[11px] font-bold text-slate-300">Keyword Researcher</div>
-                        <div className="text-[9px] text-slate-500">$15 / task</div>
-                     </div>
-                  </div>
-                  <button className="text-slate-600 hover:text-slate-400 p-0.5 cursor-pointer"><X size={10} /></button>
-               </div>
-               
-               <div className="flex items-start justify-between">
-                  <div className="flex items-start space-x-2.5">
-                     <div className="w-6 h-6 rounded bg-amber-950/40 border border-amber-900/50 flex items-center justify-center shrink-0 mt-0.5">
-                        <ShieldCheck size={10} className="text-amber-400" />
-                     </div>
-                     <div>
-                        <div className="text-[11px] font-bold text-slate-300">Technical SEO Auditor</div>
-                        <div className="text-[9px] text-slate-500">$45 / audit</div>
-                     </div>
-                  </div>
-                  <button className="text-slate-600 hover:text-slate-400 p-0.5 cursor-pointer"><X size={10} /></button>
-               </div>
+               {cart.map((item, index) => (
+                 <div key={index} className="flex items-start justify-between">
+                    <div className="flex items-start space-x-2.5">
+                       <div className={`w-6 h-6 rounded ${item.bg} border ${item.ring} flex items-center justify-center shrink-0 mt-0.5`}>
+                          {item.icon && <item.icon size={10} className={item.color} />}
+                       </div>
+                       <div>
+                          <div className="text-[11px] font-bold text-slate-300">{item.name}</div>
+                          <div className="text-[9px] text-slate-500">{item.price}</div>
+                       </div>
+                    </div>
+                    <button onClick={() => removeFromCart(index)} className="text-slate-600 hover:text-slate-400 p-0.5 cursor-pointer"><X size={10} /></button>
+                 </div>
+               ))}
+               {cart.length === 0 && (
+                 <div className="text-[10px] text-slate-500 text-center py-2">Your cart is empty.</div>
+               )}
             </div>
 
             <div className="border-t border-slate-800/60 pt-4 mb-4 flex items-center justify-between">
                <span className="text-[11px] text-slate-400">Estimated Total</span>
-               <span className="text-sm font-bold text-purple-400">$60.00</span>
+               <span className="text-sm font-bold text-purple-400">${cartTotal.toFixed(2)}</span>
             </div>
 
-            <button className="w-full py-2 bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-bold rounded-lg transition-colors shadow-[0_0_10px_rgba(147,51,234,0.3)] cursor-pointer">
-               View Cart
+            <button onClick={() => setIsCheckout(true)} disabled={cart.length === 0} className="w-full py-2 bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white text-[11px] font-bold rounded-lg transition-colors shadow-[0_0_10px_rgba(147,51,234,0.3)] cursor-pointer">
+               Checkout
             </button>
           </div>
 
