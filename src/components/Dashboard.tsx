@@ -8,7 +8,7 @@ import {
   Menu, X, Folder, CreditCard, Search, Bell, Grid, List, ArrowLeft, ExternalLink,
   Zap, Play, Share2, Megaphone, Mail, Filter, MoreHorizontal, ChevronLeft, Download,
   ClipboardList, Star, Eye, Server, Cloud, RefreshCw, AlertTriangle,
-  ShoppingCart, Bookmark, MessageCircle, FileText, Link, Code, ShieldCheck, LineChart as LineChartIcon, LayoutTemplate, ArrowRight
+  ShoppingCart, Bookmark, MessageCircle, FileText, Link, Code, ShieldCheck, LineChart as LineChartIcon, LayoutTemplate, ArrowRight, Wand2
 } from 'lucide-react';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
@@ -5027,54 +5027,58 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
       {/* ADD BRAND MODAL */}
       {showAddBrandModal && (
         <div className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#0b1220] border border-slate-800 rounded-2xl w-full max-w-md p-6 relative shadow-2xl animate-fade-in text-left">
+          <div className="bg-[#0b1220] border border-slate-800 rounded-2xl w-full max-w-[420px] relative shadow-2xl animate-fade-in text-center flex flex-col overflow-hidden">
+            
             <button 
               onClick={() => setShowAddBrandModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 hover:bg-slate-800/40 rounded-lg transition-colors cursor-pointer"
+              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 hover:bg-slate-800/40 rounded-lg transition-colors cursor-pointer z-10"
             >
               <X size={18} />
             </button>
 
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                <Sparkles size={20} className="text-blue-400" />
+            <div className="p-8 pb-4 flex flex-col items-center">
+              <div className="w-20 h-20 mb-6 relative">
+                 <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur-xl animate-pulse"></div>
+                 <img src="/claudet.png" alt="AI Assistant" className="w-full h-full object-contain relative z-10 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]" />
               </div>
-              <h2 className="text-xl font-bold text-white">Create Personal AI Assistant</h2>
-            </div>
-            
-            <p className="text-sm text-slate-400 mb-6">How would you like to initialize your new AI assistant today?</p>
+              
+              <h2 className="text-2xl font-bold text-white mb-2 leading-tight">
+                Create Your Personal<br/>
+                <span className="text-cyan-400">AI Assistant</span>
+              </h2>
+              
+              <p className="text-xs text-slate-400 mb-8 max-w-[300px] leading-relaxed mx-auto">
+                Your Personal AI Assistant will help you complete tasks, automate work, and boost your productivity. Let's create yours first.
+              </p>
 
-            <div className="space-y-4">
-              <button 
-                onClick={() => {
-                  setShowAddBrandModal(false);
-                }}
-                className="w-full bg-slate-900/50 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/50 rounded-xl p-4 flex items-start space-x-4 transition-all text-left cursor-pointer group"
-              >
-                <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <Plus size={20} className="text-blue-400" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Create Brand</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">Initialize a comprehensive brand identity and build a long-term AI team.</p>
-                </div>
-              </button>
+              <div className="w-full text-left mb-6">
+                 <label className="block text-xs font-bold text-slate-300 mb-2">Name your Personal Assistant</label>
+                 <input type="text" placeholder="e.g. Alex, My Assistant, Productivity Buddy..." className="w-full bg-[#0f172a] border border-slate-800 rounded-lg py-3 px-4 text-sm text-white focus:border-cyan-500 focus:outline-none transition-colors mb-2" />
+                 <p className="text-[10px] text-slate-500">You can change this later.</p>
+              </div>
 
               <button 
-                onClick={() => {
-                  setShowAddBrandModal(false);
-                }}
-                className="w-full bg-slate-900/50 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 rounded-xl p-4 flex items-start space-x-4 transition-all text-left cursor-pointer group"
+                onClick={() => setShowAddBrandModal(false)}
+                className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white text-sm font-bold py-3 rounded-lg shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all mb-4 cursor-pointer"
               >
-                <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <CheckCircle2 size={20} className="text-emerald-400" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">Create a Task</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">Assign a quick, one-off objective to a specialized AI without creating a full brand.</p>
-                </div>
+                Create Personal Assistant
+              </button>
+              
+              <button className="text-xs font-bold text-slate-400 hover:text-cyan-400 transition-colors cursor-pointer mb-6">
+                Learn More
               </button>
             </div>
+
+            <div className="bg-[#0f172a]/80 border-t border-slate-800/60 p-5 text-left flex items-start space-x-3">
+              <div className="mt-0.5"><Wand2 size={16} className="text-cyan-400" /></div>
+              <div>
+                 <h4 className="text-xs font-bold text-slate-200 mb-1.5">Why start with a Personal Assistant?</h4>
+                 <p className="text-[10px] text-slate-400 leading-relaxed">
+                   Your Personal Assistant is designed for you. It helps with your daily tasks, answers questions, and gets things done—your way.
+                 </p>
+              </div>
+            </div>
+
           </div>
         </div>
       )}
