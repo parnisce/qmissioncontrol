@@ -6,7 +6,9 @@ import {
   MoreVertical, ArrowUpRight, Maximize2, MessageSquare, Monitor,
   Radio, Database, Globe, ChevronDown, CircleDot, TrendingUp, CheckCircle2,
   Menu, X, Folder, CreditCard, Search, Bell, Grid, List, ArrowLeft, ExternalLink,
-  Zap, Play, Share2
+  Zap, Play, Share2, Megaphone, Mail, Filter, MoreHorizontal, ChevronLeft, Download,
+  ClipboardList, Star, Eye, Server, Cloud, RefreshCw, AlertTriangle,
+  ShoppingCart, Bookmark, MessageCircle, FileText, Link, Code, ShieldCheck, LineChart as LineChartIcon, LayoutTemplate, ArrowRight
 } from 'lucide-react';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
@@ -17,6 +19,7 @@ import {
 import CountUpRaw from 'react-countup';
 import GaugeComponentRaw from 'react-gauge-component';
 import { WorldMap } from './WorldMap';
+import { supabase } from '../lib/supabase';
 
 // Resolve default import mismatch in Vite dev server
 const CountUp = (CountUpRaw as any).default || CountUpRaw;
@@ -678,7 +681,7 @@ export const aiEmployeesList = [
 ];
 
 interface DigitalLegendsDetailsProps {
-  setActiveTab: (tab: 'overview' | 'mission-control' | 'brands' | 'brand-details') => void;
+  setActiveTab: (tab: 'overview' | 'mission-control' | 'brands' | 'brand-details' | 'brand-tasks') => void;
 }
 
 function DigitalLegendsDetails({ setActiveTab }: DigitalLegendsDetailsProps) {
@@ -1038,7 +1041,10 @@ function DigitalLegendsDetails({ setActiveTab }: DigitalLegendsDetailsProps) {
                 </h3>
                 <p className="text-slate-400 text-xs mt-0.5">Smart suggestions from your AI CEO to accelerate growth.</p>
               </div>
-              <button className="px-3 py-1.5 border border-slate-800 hover:border-slate-700 hover:bg-slate-900 text-slate-350 hover:text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer">
+              <button 
+                onClick={() => setActiveTab('brand-tasks')}
+                className="px-3 py-1.5 border border-slate-800 hover:border-slate-700 hover:bg-slate-900 text-slate-350 hover:text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer"
+              >
                 View All Tasks
               </button>
             </div>
@@ -1102,10 +1108,1356 @@ function DigitalLegendsDetails({ setActiveTab }: DigitalLegendsDetailsProps) {
   );
 }
 
+function DigitalLegendsTasks({ setActiveTab }: { setActiveTab: (tab: any) => void }) {
+  const [page, setPage] = React.useState(1);
+  
+  const tasks = [
+    { title: 'Define 90-Day Growth Strategy', desc: 'Set clear goals and milestones for the next 90 days.', category: 'Strategy', catColor: 'bg-purple-900/30 text-purple-400', assignee: 'AI CEO', assigneeIcon: 'https://i.pravatar.cc/150?u=alex2', priority: 'High', priorityColor: 'text-red-400', status: 'Completed', statusIcon: CheckCircle2, statusColor: 'text-emerald-400', date: 'May 22, 2025' },
+    { title: 'Build Brand Positioning', desc: 'Clarify your value proposition and brand message.', category: 'Branding', catColor: 'bg-blue-900/30 text-blue-400', assignee: 'AI Marketing Manager', assigneeIcon: 'https://i.pravatar.cc/150?u=maya3', priority: 'High', priorityColor: 'text-red-400', status: 'Completed', statusIcon: CheckCircle2, statusColor: 'text-emerald-400', date: 'May 23, 2025' },
+    { title: 'Optimize Website & Funnel', desc: 'Improve conversions and user experience.', category: 'Growth', catColor: 'bg-cyan-900/30 text-cyan-400', assignee: 'AI Operations Manager', assigneeIcon: 'https://i.pravatar.cc/150?u=kimmy4', priority: 'Medium', priorityColor: 'text-amber-400', status: 'In Progress', statusIcon: CircleDot, statusColor: 'text-amber-400', date: 'May 28, 2025' },
+    { title: 'Content Strategy Plan', desc: 'Build a content roadmap to attract and engage.', category: 'Content', catColor: 'bg-green-900/30 text-green-400', assignee: 'AI Content Strategist', assigneeIcon: 'https://i.pravatar.cc/150?u=leo5', priority: 'Medium', priorityColor: 'text-amber-400', status: 'In Progress', statusIcon: CircleDot, statusColor: 'text-amber-400', date: 'May 30, 2025' },
+    { title: 'Set up Analytics & Tracking', desc: 'Track key metrics and growth KPIs.', category: 'Analytics', catColor: 'bg-blue-900/30 text-blue-400', assignee: 'AI Operations Manager', assigneeIcon: 'https://i.pravatar.cc/150?u=kimmy4', priority: 'Low', priorityColor: 'text-green-400', status: 'Completed', statusIcon: CheckCircle2, statusColor: 'text-emerald-400', date: 'May 21, 2025' },
+    { title: 'Launch New Campaign', desc: 'Execute the first growth campaign.', category: 'Marketing', catColor: 'bg-fuchsia-900/30 text-fuchsia-400', assignee: 'AI Marketing Manager', assigneeIcon: 'https://i.pravatar.cc/150?u=maya3', priority: 'High', priorityColor: 'text-red-400', status: 'In Progress', statusIcon: CircleDot, statusColor: 'text-amber-400', date: 'May 31, 2025' },
+    { title: 'Social Media Content Calendar', desc: 'Plan and schedule content for all platforms.', category: 'Content', catColor: 'bg-green-900/30 text-green-400', assignee: 'AI Content Strategist', assigneeIcon: 'https://i.pravatar.cc/150?u=leo5', priority: 'Medium', priorityColor: 'text-amber-400', status: 'Pending', statusIcon: CircleDot, statusColor: 'text-slate-500', date: 'Jun 02, 2025' },
+    { title: 'Hire Additional AI Employees', desc: 'Expand the team to accelerate execution.', category: 'Team', catColor: 'bg-blue-900/30 text-blue-400', assignee: 'AI CEO', assigneeIcon: 'https://i.pravatar.cc/150?u=alex2', priority: 'High', priorityColor: 'text-red-400', status: 'Pending', statusIcon: CircleDot, statusColor: 'text-slate-500', date: 'Jun 03, 2025' },
+    { title: 'Setup Email Marketing Automation', desc: 'Build email flows and automation.', category: 'Marketing', catColor: 'bg-fuchsia-900/30 text-fuchsia-400', assignee: 'AI Marketing Manager', assigneeIcon: 'https://i.pravatar.cc/150?u=maya3', priority: 'Low', priorityColor: 'text-green-400', status: 'Pending', statusIcon: CircleDot, statusColor: 'text-slate-500', date: 'Jun 04, 2025' },
+    { title: 'Competitor Analysis', desc: 'Analyze competitors and market positioning.', category: 'Research', catColor: 'bg-orange-900/30 text-orange-400', assignee: 'AI Sales Manager', assigneeIcon: 'https://i.pravatar.cc/150?u=zara2', priority: 'Medium', priorityColor: 'text-amber-400', status: 'Pending', statusIcon: CircleDot, statusColor: 'text-slate-500', date: 'Jun 05, 2025' },
+  ];
+
+  return (
+    <div className="flex-1 flex flex-col overflow-hidden relative bg-[#020617]">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-900/40 via-[#020617] to-[#020617] pointer-events-none"></div>
+      
+      {/* HEADER */}
+      <header className="px-4 md:px-8 pt-6 pb-6 flex flex-col md:flex-row md:items-start justify-between gap-4 z-10 shrink-0 border-b border-slate-800/60 bg-[#060814]/50">
+        <div>
+          <div className="flex items-center space-x-2 text-[10px] font-bold text-slate-500 tracking-widest uppercase mb-2">
+            <span className="hover:text-cyan-400 cursor-pointer transition-colors" onClick={() => setActiveTab('brands')}>Brands</span>
+            <ChevronRight size={10} />
+            <span className="hover:text-cyan-400 cursor-pointer transition-colors" onClick={() => setActiveTab('brand-details')}>Digital Legends</span>
+            <ChevronRight size={10} />
+            <span className="text-slate-300">Tasks</span>
+          </div>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight font-outfit mb-1.5">
+            All Tasks
+          </h1>
+          <p className="text-xs text-slate-400">Here's everything we're working on to grow your brand. Track progress, view priorities, and manage execution.</p>
+        </div>
+        <div className="flex items-center space-x-3 mt-4 md:mt-0">
+          <button className="flex items-center space-x-2 px-4 py-2 border border-slate-700 hover:border-slate-500 rounded-lg text-xs font-bold text-cyan-400 transition-colors bg-slate-900/50">
+            <ExternalLink size={14} />
+            <span>Export Tasks</span>
+          </button>
+        </div>
+      </header>
+
+      {/* TWO-COLUMN LAYOUT */}
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+        
+        {/* MAIN COLUMN (TASKS TABLE) */}
+        <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+          
+          {/* FILTERS */}
+          <div className="p-4 md:px-8 shrink-0 flex flex-wrap items-center gap-3">
+            <div className="relative">
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+              <input type="text" placeholder="Search tasks..." className="bg-slate-900/80 border border-slate-800 focus:border-cyan-500/50 text-xs text-white rounded-lg pl-9 pr-3 py-2 w-56 placeholder-slate-500" />
+            </div>
+            {['Status', 'Priority', 'Assignee', 'Category'].map(label => (
+              <div key={label} className="flex flex-col space-y-1.5">
+                <span className="text-[9px] font-bold text-slate-500 px-1">{label}</span>
+                <button className="flex items-center justify-between space-x-2 bg-slate-900/50 border border-slate-800 hover:border-slate-700 px-3 py-1.5 rounded-lg text-xs text-slate-300 w-32">
+                  <span>All {label === 'Priority' ? 'Priorities' : label === 'Status' ? 'Status' : label + 's'}</span>
+                  <ChevronDown size={12} className="text-slate-500" />
+                </button>
+              </div>
+            ))}
+            <button className="text-xs font-bold text-cyan-400 hover:text-cyan-300 mt-5 px-2">Clear Filters</button>
+          </div>
+
+          {/* TABLE CONTAINER */}
+          <div className="flex-1 overflow-y-auto px-4 md:px-8 pb-32 custom-scrollbar relative">
+            <div className="min-w-[800px]">
+              {/* TABLE HEADER */}
+              <div className="grid grid-cols-12 gap-4 px-4 py-3 border-y border-slate-800/80 text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-2">
+                <div className="col-span-5">Task</div>
+                <div className="col-span-1">Category</div>
+                <div className="col-span-2">Assignee</div>
+                <div className="col-span-1">Priority</div>
+                <div className="col-span-1.5">Status</div>
+                <div className="col-span-1.5 flex justify-between items-center">
+                  <span>Due Date</span>
+                </div>
+              </div>
+
+              {/* TABLE BODY */}
+              <div className="space-y-1.5 relative">
+                {tasks.map((task, i) => (
+                  <div key={i} className="grid grid-cols-12 gap-4 px-4 py-3.5 bg-slate-900/30 border border-slate-800/50 hover:bg-slate-800/40 rounded-lg text-xs transition-colors items-center group cursor-pointer relative">
+                    <div className="col-span-5 flex items-start space-x-3">
+                      <div className="mt-0.5 w-6 h-6 rounded bg-slate-800 border border-slate-700 flex items-center justify-center shrink-0">
+                        {task.status === 'Completed' ? <CheckCircle2 size={12} className="text-cyan-400" /> : <div className="w-3 h-3 border-2 border-slate-600 rounded-sm"></div>}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-white group-hover:text-cyan-400 transition-colors">{task.title}</h4>
+                        <p className="text-[10px] text-slate-500 mt-0.5">{task.desc}</p>
+                      </div>
+                    </div>
+                    <div className="col-span-1">
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-bold ${task.catColor}`}>{task.category}</span>
+                    </div>
+                    <div className="col-span-2 flex items-center space-x-2">
+                      <img src={task.assigneeIcon} className="w-5 h-5 rounded-full border border-slate-700" alt={task.assignee} />
+                      <span className="text-slate-300 font-medium">{task.assignee}</span>
+                    </div>
+                    <div className="col-span-1 font-bold">
+                      <span className={task.priorityColor}>{task.priority}</span>
+                    </div>
+                    <div className="col-span-1.5 flex items-center space-x-1.5">
+                      <task.statusIcon size={12} className={task.statusColor} />
+                      <span className={`font-semibold ${task.statusColor}`}>{task.status}</span>
+                    </div>
+                    <div className="col-span-1.5 flex items-center justify-between text-slate-400">
+                      <span>{task.date}</span>
+                      <MoreVertical size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* PAGINATION */}
+            <div className="flex items-center justify-between py-6 mt-2 border-t border-slate-800/80">
+              <span className="text-xs text-slate-500">Showing 1 to 10 of 28 tasks</span>
+              <div className="flex items-center space-x-1">
+                <button className="w-8 h-8 rounded bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 hover:text-white hover:border-slate-600 transition-colors"><ChevronRight size={14} className="rotate-180" /></button>
+                {[1, 2, 3].map(num => (
+                  <button key={num} onClick={() => setPage(num)} className={`w-8 h-8 rounded border flex items-center justify-center text-xs font-bold transition-colors ${page === num ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white hover:border-slate-600'}`}>{num}</button>
+                ))}
+                <button className="w-8 h-8 rounded bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 hover:text-white hover:border-slate-600 transition-colors"><ChevronRight size={14} /></button>
+              </div>
+            </div>
+          </div>
+
+          {/* FLOATING CHAT BAR */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-3xl z-20">
+            <div className="bg-[#0b1220]/90 backdrop-blur-xl border border-slate-700/60 rounded-full p-2 pl-4 pr-3 flex items-center shadow-2xl shadow-cyan-500/10 relative">
+              <div className="relative shrink-0">
+                <div className="w-8 h-8 rounded-full bg-slate-800 border border-slate-600 flex items-center justify-center relative z-10 overflow-hidden">
+                  <img src="https://i.pravatar.cc/150?u=alex2" className="w-full h-full object-cover" />
+                </div>
+                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border border-[#0b1220] rounded-full z-20"></div>
+              </div>
+              <input 
+                type="text" 
+                placeholder="Ask me anything about your tasks, workflows, or team..." 
+                className="flex-1 bg-transparent text-sm text-white placeholder-slate-400 px-4 focus:outline-none" 
+              />
+              <button className="w-8 h-8 rounded-full bg-cyan-600 hover:bg-cyan-500 flex items-center justify-center text-white shrink-0 transition-colors cursor-pointer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-0.5"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+              </button>
+            </div>
+            <div className="flex items-center space-x-1.5 mt-2.5 ml-6">
+              <div className="flex space-x-0.5">
+                <div className="w-1 h-1 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                <div className="w-1 h-1 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                <div className="w-1 h-1 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+              </div>
+              <span className="text-[10px] text-slate-400 font-medium">AI CEO is online and ready to help...</span>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT SIDEBAR (STATS & CHARTS) */}
+        <div className="w-full lg:w-[320px] shrink-0 border-l border-slate-800/60 bg-[#040814]/40 overflow-y-auto custom-scrollbar p-6 space-y-6">
+          
+          {/* Tasks Overview */}
+          <div>
+            <h3 className="text-[11px] font-bold text-white mb-4">Tasks Overview</h3>
+            <div className="grid grid-cols-2 gap-3 text-center">
+              <div className="bg-slate-900/60 border border-slate-800 rounded-xl py-4 flex flex-col justify-center">
+                <div className="text-2xl font-bold text-cyan-400 mb-1">28</div>
+                <div className="text-[9px] text-slate-400 font-medium uppercase tracking-wider">Total Tasks</div>
+              </div>
+              <div className="bg-slate-900/60 border border-slate-800 rounded-xl py-4 flex flex-col justify-center">
+                <div className="text-2xl font-bold text-emerald-400 mb-1">12</div>
+                <div className="text-[9px] text-slate-400 font-medium uppercase tracking-wider">Completed</div>
+              </div>
+              <div className="bg-slate-900/60 border border-slate-800 rounded-xl py-4 flex flex-col justify-center">
+                <div className="text-2xl font-bold text-amber-400 mb-1">9</div>
+                <div className="text-[9px] text-slate-400 font-medium uppercase tracking-wider">In Progress</div>
+              </div>
+              <div className="bg-slate-900/60 border border-slate-800 rounded-xl py-4 flex flex-col justify-center">
+                <div className="text-2xl font-bold text-slate-300 mb-1">7</div>
+                <div className="text-[9px] text-slate-400 font-medium uppercase tracking-wider">Pending</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tasks by Priority */}
+          <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-4">
+            <h3 className="text-[11px] font-bold text-white mb-4">Tasks by Priority</h3>
+            <div className="flex items-center">
+              <div className="w-24 h-24 shrink-0 relative">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={[{value: 36, fill: '#ef4444'}, {value: 39, fill: '#f59e0b'}, {value: 25, fill: '#0ea5e9'}]} cx="50%" cy="50%" innerRadius={28} outerRadius={42} stroke="none" dataKey="value" paddingAngle={2}>
+                      <Cell key="cell-0" fill="#ef4444" />
+                      <Cell key="cell-1" fill="#f59e0b" />
+                      <Cell key="cell-2" fill="#0ea5e9" />
+                    </Pie>
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="flex-1 ml-4 space-y-2.5">
+                {[
+                  { label: 'High', color: 'bg-red-500', count: '10', perc: '36%' },
+                  { label: 'Medium', color: 'bg-amber-500', count: '11', perc: '39%' },
+                  { label: 'Low', color: 'bg-cyan-500', count: '7', perc: '25%' }
+                ].map(p => (
+                  <div key={p.label} className="flex items-center justify-between text-[10px]">
+                    <div className="flex items-center space-x-2">
+                      <div className={`w-1.5 h-1.5 rounded-full ${p.color}`}></div>
+                      <span className="text-slate-300 font-medium">{p.label}</span>
+                    </div>
+                    <div className="flex space-x-2 text-slate-400">
+                      <span>{p.count}</span>
+                      <span className="w-8 text-right">({p.perc})</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Tasks by Category */}
+          <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-4">
+            <h3 className="text-[11px] font-bold text-white mb-4">Tasks by Category</h3>
+            <div className="space-y-3">
+              {[
+                { label: 'Strategy', val: 5, max: 6, color: 'bg-purple-500' },
+                { label: 'Branding', val: 4, max: 6, color: 'bg-blue-500' },
+                { label: 'Marketing', val: 6, max: 6, color: 'bg-fuchsia-500' },
+                { label: 'Content', val: 5, max: 6, color: 'bg-green-500' },
+                { label: 'Growth', val: 3, max: 6, color: 'bg-cyan-500' },
+                { label: 'Analytics', val: 2, max: 6, color: 'bg-sky-500' },
+                { label: 'Team', val: 2, max: 6, color: 'bg-indigo-500' },
+                { label: 'Research', val: 1, max: 6, color: 'bg-orange-500' }
+              ].map(c => (
+                <div key={c.label} className="flex items-center text-[9px] font-bold group">
+                  <div className="w-16 text-slate-400 group-hover:text-slate-300">{c.label}</div>
+                  <div className="flex-1 flex items-center space-x-2 ml-2">
+                    <div className="h-1.5 rounded-full bg-slate-800 flex-1 relative overflow-hidden">
+                      <div className={`absolute top-0 left-0 bottom-0 ${c.color} rounded-full`} style={{ width: `${(c.val/c.max)*100}%` }}></div>
+                    </div>
+                    <span className="text-slate-400 w-3 text-right">{c.val}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Need Help Prioritizing */}
+          <div className="bg-[#0f172a] border border-cyan-900/50 rounded-xl p-5 shadow-[0_0_20px_rgba(6,182,212,0.05)] flex flex-col relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl -translate-y-10 translate-x-10 pointer-events-none"></div>
+            <div className="flex items-center space-x-3 mb-3">
+              <div className="w-8 h-8 rounded border border-cyan-500/30 bg-cyan-950/40 flex items-center justify-center text-cyan-400 relative z-10">
+                <Sparkles size={16} />
+              </div>
+              <h3 className="text-xs font-bold text-white relative z-10">Need Help Prioritizing?</h3>
+            </div>
+            <p className="text-[10px] text-slate-400 mb-4 leading-relaxed relative z-10">Ask your AI CEO to reprioritize tasks based on impact and deadlines.</p>
+            <button className="w-full py-2 bg-slate-900 border border-slate-700 hover:border-cyan-500/50 text-[10px] font-bold text-cyan-400 transition-colors rounded-lg flex items-center justify-center space-x-2 relative z-10 cursor-pointer">
+              <span>Ask AI CEO</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+function WorkflowsView() {
+  const [activeWorkflowTab, setActiveWorkflowTab] = React.useState('All');
+  
+  const workflows = [
+    {
+      id: 1,
+      title: 'Autophagy Content Automation',
+      status: 'Active',
+      desc: 'Discover trending news, create SEO blog posts and publish automatically',
+      trigger: 'Every 6 Hours',
+      lastRun: 'May 17, 2025 11:58 AM',
+      success: '100%',
+      runs: 7,
+      duration: '1m 18s',
+      iconBg: 'bg-blue-600/20',
+      iconColor: 'text-blue-500',
+      icon: Share2
+    },
+    {
+      id: 2,
+      title: 'Social Media Post Automation',
+      status: 'Active',
+      desc: 'Create and schedule engaging social media posts across platforms',
+      trigger: 'Daily at 9:00 AM',
+      lastRun: 'May 17, 2025 9:00 AM',
+      success: '98%',
+      runs: 14,
+      duration: '45s',
+      iconBg: 'bg-emerald-600/20',
+      iconColor: 'text-emerald-500',
+      icon: Megaphone
+    },
+    {
+      id: 3,
+      title: 'Weekly Newsletter Automation',
+      status: 'Inactive',
+      desc: 'Compile weekly updates and send newsletter to subscribers',
+      trigger: 'Every Monday 8:00 AM',
+      lastRun: 'May 12, 2025 8:00 AM',
+      success: '92%',
+      runs: 1,
+      duration: '2m 05s',
+      iconBg: 'bg-amber-600/20',
+      iconColor: 'text-amber-500',
+      icon: Mail
+    }
+  ];
+
+  return (
+    <div className="flex-1 overflow-y-auto px-4 md:px-8 py-8 custom-scrollbar">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-white mb-2">Workflows</h1>
+          <p className="text-sm text-slate-400">Create, manage, and monitor your workflows. Automate tasks and achieve more with AI.</p>
+        </div>
+        <button className="flex items-center space-x-2 bg-teal-500 hover:bg-teal-400 text-white px-4 py-2 rounded-lg font-medium transition-colors cursor-pointer">
+          <Plus size={16} />
+          <span>Create Workflow</span>
+        </button>
+      </div>
+
+      {/* Tabs & Controls */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-slate-800/60 pb-4">
+        <div className="flex items-center space-x-6">
+          {[
+            { name: 'All Workflows', count: 12, id: 'All' },
+            { name: 'Active', count: 8, id: 'Active' },
+            { name: 'Inactive', count: 4, id: 'Inactive' },
+            { name: 'Drafts', count: 2, id: 'Drafts' }
+          ].map(t => (
+            <button 
+              key={t.id}
+              onClick={() => setActiveWorkflowTab(t.id)}
+              className={`flex items-center space-x-2 pb-4 -mb-[17px] border-b-2 transition-colors ${activeWorkflowTab === t.id ? 'border-teal-400 text-teal-400' : 'border-transparent text-slate-400 hover:text-slate-300'}`}
+            >
+              <span className="font-medium text-sm">{t.name}</span>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full ${activeWorkflowTab === t.id ? 'bg-teal-900/30 text-teal-400' : 'bg-slate-800 text-slate-400'}`}>{t.count}</span>
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center space-x-3">
+          <div className="relative">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+            <input type="text" placeholder="Search workflows..." className="bg-transparent border border-slate-800 focus:border-slate-600 text-sm text-white rounded-lg pl-9 pr-3 py-1.5 w-64 placeholder-slate-500 focus:outline-none" />
+          </div>
+          <button className="flex items-center space-x-2 border border-slate-800 hover:border-slate-700 bg-transparent px-3 py-1.5 rounded-lg text-sm text-white transition-colors cursor-pointer">
+            <Filter size={14} className="text-slate-400" />
+            <span>Filter</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Workflows List */}
+      <div className="space-y-4">
+        {workflows.map(w => (
+          <div key={w.id} className="bg-slate-900/30 border border-slate-800/60 rounded-xl p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-6 hover:border-slate-700/80 transition-colors">
+            
+            <div className="flex items-start space-x-5 flex-1">
+              <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${w.iconBg}`}>
+                <w.icon size={24} className={w.iconColor} />
+              </div>
+              <div>
+                <div className="flex items-center space-x-3 mb-1">
+                  <h3 className="text-lg font-bold text-white">{w.title}</h3>
+                  <span className={`text-[10px] px-2 py-0.5 rounded font-medium ${w.status === 'Active' ? 'bg-emerald-950/50 text-emerald-400' : 'bg-amber-950/50 text-amber-400'}`}>
+                    {w.status}
+                  </span>
+                </div>
+                <p className="text-sm text-slate-400 mb-4">{w.desc}</p>
+                <div className="flex items-center space-x-6 text-[11px] text-slate-400">
+                  <div className="flex items-center space-x-1.5">
+                    <Calendar size={12} />
+                    <span>Trigger: {w.trigger}</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5">
+                    <Clock size={12} />
+                    <span>Last Run: {w.lastRun}</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5">
+                    <BarChart2 size={12} />
+                    <span>Success Rate: <span className="text-emerald-400 font-medium">{w.success}</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-8 lg:border-l border-slate-800/60 lg:pl-8">
+              <div>
+                <div className="text-[10px] text-slate-400 mb-1">Runs (Last 7 Days)</div>
+                <div className="text-xl font-bold text-white">{w.runs}</div>
+              </div>
+              <div>
+                <div className="text-[10px] text-slate-400 mb-1">Avg. Duration</div>
+                <div className="text-xl font-bold text-white">{w.duration}</div>
+              </div>
+              <button className="w-8 h-8 rounded border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white transition-colors shrink-0 cursor-pointer">
+                <MoreHorizontal size={16} />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Pagination */}
+      <div className="flex items-center justify-between mt-8">
+        <div className="text-sm text-slate-400">Showing 1 to 3 of 12 workflows</div>
+        <div className="flex items-center space-x-1">
+          <button className="w-8 h-8 rounded border border-slate-800 flex items-center justify-center text-slate-500 hover:text-white hover:border-slate-700 transition-colors cursor-pointer"><ChevronLeft size={16} /></button>
+          <button className="w-8 h-8 rounded bg-teal-500 text-white flex items-center justify-center text-sm font-medium cursor-pointer">1</button>
+          <button className="w-8 h-8 rounded border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-700 transition-colors text-sm font-medium cursor-pointer">2</button>
+          <button className="w-8 h-8 rounded border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-700 transition-colors text-sm font-medium cursor-pointer">3</button>
+          <button className="w-8 h-8 rounded border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-700 transition-colors text-sm font-medium cursor-pointer">4</button>
+          <button className="w-8 h-8 rounded border border-slate-800 flex items-center justify-center text-slate-500 hover:text-white hover:border-slate-700 transition-colors cursor-pointer"><ChevronRight size={16} /></button>
+        </div>
+        <div className="relative">
+          <select className="appearance-none bg-transparent border border-slate-800 hover:border-slate-700 text-slate-400 text-sm rounded-lg px-4 py-2 pr-8 focus:outline-none cursor-pointer">
+            <option>Show 10 per page</option>
+            <option>Show 20 per page</option>
+            <option>Show 50 per page</option>
+          </select>
+          <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AnalyticsView() {
+  const lineData = [
+    { name: 'May 11', runs: 18 },
+    { name: 'May 12', runs: 25 },
+    { name: 'May 13', runs: 20 },
+    { name: 'May 14', runs: 30 },
+    { name: 'May 15', runs: 22 },
+    { name: 'May 16', runs: 28 },
+    { name: 'May 17', runs: 35 },
+  ];
+
+  const statusData = [
+    { name: 'Success', value: 155, fill: '#059669' }, // emerald-600
+    { name: 'Failed', value: 2, fill: '#2563eb' }, // blue-600
+    { name: 'Canceled', value: 1, fill: '#eab308' }, // yellow-500
+    { name: 'In Progress', value: 0, fill: '#dc2626' }, // red-600
+  ];
+
+  const triggerData = [
+    { name: 'On Schedule', value: 102, fill: '#7c3aed' }, // violet-600
+    { name: 'Manual Trigger', value: 34, fill: '#2563eb' }, // blue-600
+    { name: 'Webhook', value: 22, fill: '#0891b2' }, // cyan-600
+  ];
+
+  return (
+    <div className="flex-1 overflow-y-auto px-4 md:px-8 py-8 custom-scrollbar">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
+        <div>
+          <h1 className="text-3xl font-bold text-white mb-2">Analytics</h1>
+          <p className="text-sm text-slate-400">Track performance, analyze trends, and gain insights across all your workflows.</p>
+        </div>
+        <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 px-4 py-2 border border-slate-800 bg-slate-900/50 rounded-lg text-sm text-slate-300 font-medium cursor-pointer hover:border-slate-700 transition-colors">
+            <Calendar size={14} className="text-slate-500" />
+            <span>May 11 - May 17, 2025</span>
+            <ChevronDown size={14} className="text-slate-500 ml-1" />
+          </div>
+          <button className="flex items-center space-x-2 border border-slate-700 hover:border-slate-600 bg-slate-900 px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors cursor-pointer">
+            <Download size={14} />
+            <span>Export Report</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Top Metrics Row */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
+        {[
+          { title: 'Total Workflow Runs', value: '158', trend: '18.6%', vs: 'vs May 4 - May 10', icon: Play, iconColor: 'text-teal-400', iconBg: 'bg-teal-950/30 border-teal-900/50', trendColor: 'text-emerald-400', up: true },
+          { title: 'Success Rate', value: '98.2%', trend: '2.7%', vs: 'vs May 4 - May 10', icon: CheckCircle2, iconColor: 'text-emerald-400', iconBg: 'bg-emerald-950/30 border-emerald-900/50', trendColor: 'text-emerald-400', up: true },
+          { title: 'Avg. Duration', value: '1m 24s', trend: '8.4%', vs: 'vs May 4 - May 10', icon: Clock, iconColor: 'text-purple-400', iconBg: 'bg-purple-950/30 border-purple-900/50', trendColor: 'text-emerald-400', up: true }, 
+          { title: 'Tasks Completed', value: '1,432', trend: '24.1%', vs: 'vs May 4 - May 10', icon: BarChart2, iconColor: 'text-amber-400', iconBg: 'bg-amber-950/30 border-amber-900/50', trendColor: 'text-emerald-400', up: true },
+          { title: 'Time Saved', value: '24h 18m', trend: '22.3%', vs: 'vs May 4 - May 10', icon: Clock, iconColor: 'text-blue-400', iconBg: 'bg-blue-950/30 border-blue-900/50', trendColor: 'text-emerald-400', up: true }
+        ].map((m, i) => (
+          <div key={i} className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between">
+            <div className="flex items-center space-x-3 mb-3">
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center border ${m.iconBg}`}>
+                <m.icon size={16} className={m.iconColor} />
+              </div>
+              <div className="text-[10px] font-bold text-slate-400 uppercase">{m.title}</div>
+            </div>
+            <div className="text-2xl font-bold text-white mb-2">{m.value}</div>
+            <div className="flex items-center space-x-1.5 text-[9px]">
+              <span className={`font-bold flex items-center ${m.trendColor}`}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className={`w-3 h-3 mr-0.5 ${!m.up ? 'rotate-180' : ''}`}><polyline points="18 15 12 9 6 15"></polyline></svg>
+                {m.trend}
+              </span>
+              <span className="text-slate-500">{m.vs}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Middle Section: Line Chart & Pie Chart */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+        
+        {/* Runs Over Time */}
+        <div className="lg:col-span-2 bg-slate-900/40 border border-slate-800/80 rounded-xl p-5 flex flex-col min-h-[300px]">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <div className="flex items-center space-x-2">
+                <h3 className="text-sm font-bold text-white">Runs Over Time</h3>
+                <div className="w-3.5 h-3.5 rounded-full border border-slate-600 text-slate-400 flex items-center justify-center text-[8px]">i</div>
+              </div>
+              <p className="text-[10px] text-slate-400 mt-1">Daily workflow runs for the selected time period.</p>
+            </div>
+            <div className="flex items-center space-x-1 px-3 py-1.5 bg-slate-900/80 border border-slate-800 rounded text-[10px] font-bold text-slate-300 cursor-pointer">
+              <span>Daily</span>
+              <ChevronDown size={12} className="ml-1 text-slate-500" />
+            </div>
+          </div>
+          <div className="flex-1 w-full relative">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={lineData} margin={{ top: 5, right: 20, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" />
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} dy={10} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} />
+                <RechartsTooltip contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '8px', fontSize: '12px', color: '#fff' }} />
+                <Line type="monotone" dataKey="runs" stroke="#06b6d4" strokeWidth={2} dot={{ r: 4, fill: '#06b6d4', stroke: '#020617', strokeWidth: 2 }} activeDot={{ r: 6 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Runs by Status */}
+        <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5 flex flex-col min-h-[300px]">
+          <div className="flex items-center space-x-2 mb-1">
+            <h3 className="text-sm font-bold text-white">Runs by Status</h3>
+            <div className="w-3.5 h-3.5 rounded-full border border-slate-600 text-slate-400 flex items-center justify-center text-[8px]">i</div>
+          </div>
+          <p className="text-[10px] text-slate-400 mb-6">Distribution of workflow runs by status.</p>
+          
+          <div className="flex-1 flex flex-col justify-center">
+            <div className="h-40 relative mb-6">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie data={statusData} cx="50%" cy="50%" innerRadius={45} outerRadius={70} stroke="#0f172a" strokeWidth={2} dataKey="value" paddingAngle={2}>
+                    {statusData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.fill} />)}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            
+            <div className="space-y-2.5">
+              {statusData.map((s, i) => (
+                <div key={i} className="flex items-center justify-between text-[11px]">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: s.fill }}></div>
+                    <span className="text-slate-300">{s.name}</span>
+                  </div>
+                  <div className="flex space-x-2">
+                    <span className="text-white font-medium">{s.value}</span>
+                    <span className="text-slate-500 w-10 text-right">({s.value === 0 ? '0' : Math.round((s.value/158)*100)}%)</span>
+                  </div>
+                </div>
+              ))}
+              <div className="flex items-center justify-between text-[11px] font-bold border-t border-slate-800/80 pt-2.5 mt-2.5">
+                <span className="text-slate-400">Total</span>
+                <span className="text-white mr-12">158</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Lower Middle Section: Top Workflows & Runs by Trigger Type */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+        
+        {/* Top Workflows by Runs */}
+        <div className="lg:col-span-2 bg-slate-900/40 border border-slate-800/80 rounded-xl p-5">
+          <div className="flex items-center space-x-2 mb-1">
+            <h3 className="text-sm font-bold text-white">Top Workflows by Runs</h3>
+            <div className="w-3.5 h-3.5 rounded-full border border-slate-600 text-slate-400 flex items-center justify-center text-[8px]">i</div>
+          </div>
+          <p className="text-[10px] text-slate-400 mb-6">Workflows ranked by total runs in the selected period.</p>
+          
+          <div className="w-full overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-slate-800 text-[10px] text-slate-500 font-bold uppercase">
+                  <th className="pb-3 font-medium">Workflow</th>
+                  <th className="pb-3 font-medium text-center">Status</th>
+                  <th className="pb-3 font-medium text-center">Runs</th>
+                  <th className="pb-3 font-medium text-center">Success Rate</th>
+                  <th className="pb-3 font-medium text-right">Avg. Duration</th>
+                </tr>
+              </thead>
+              <tbody className="text-[11px]">
+                {[
+                  { name: 'Autophagy Content Automation', icon: Share2, color: 'text-blue-500', bg: 'bg-blue-600/20', status: 'Active', statusColor: 'bg-emerald-950/50 text-emerald-400', runs: '67', success: '100%', successColor: 'text-emerald-400', duration: '1m 18s' },
+                  { name: 'Social Media Post Automation', icon: Megaphone, color: 'text-emerald-500', bg: 'bg-emerald-600/20', status: 'Active', statusColor: 'bg-emerald-950/50 text-emerald-400', runs: '54', success: '98.1%', successColor: 'text-emerald-400', duration: '45s' },
+                  { name: 'Weekly Newsletter Automation', icon: Mail, color: 'text-amber-500', bg: 'bg-amber-600/20', status: 'Inactive', statusColor: 'bg-amber-950/50 text-amber-400', runs: '37', success: '94.6%', successColor: 'text-emerald-400', duration: '2m 05s' },
+                  { name: 'SEO Content Research', icon: Search, color: 'text-blue-400', bg: 'bg-blue-500/20', status: 'Draft', statusColor: 'bg-slate-800 text-slate-400', runs: '0', success: '-', successColor: 'text-slate-500', duration: '-' },
+                  { name: 'Lead Nurture Automation', icon: TrendingUp, color: 'text-purple-500', bg: 'bg-purple-600/20', status: 'Active', statusColor: 'bg-emerald-950/50 text-emerald-400', runs: '0', success: '-', successColor: 'text-slate-500', duration: '-' },
+                ].map((row, i) => (
+                  <tr key={i} className="border-b border-slate-800/50 last:border-0 hover:bg-slate-800/30 transition-colors">
+                    <td className="py-3 pr-2">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-7 h-7 rounded border border-slate-700/50 flex items-center justify-center shrink-0 ${row.bg}`}>
+                          <row.icon size={12} className={row.color} />
+                        </div>
+                        <span className="font-bold text-white whitespace-nowrap">{row.name}</span>
+                      </div>
+                    </td>
+                    <td className="py-3 text-center">
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-medium ${row.statusColor}`}>{row.status}</span>
+                    </td>
+                    <td className="py-3 text-center font-bold text-slate-300">{row.runs}</td>
+                    <td className="py-3 text-center font-bold">
+                      <span className={row.successColor}>{row.success}</span>
+                    </td>
+                    <td className="py-3 text-right text-slate-300 font-medium pl-2">{row.duration}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-4 flex justify-center">
+            <button className="px-4 py-1.5 border border-slate-700 rounded-lg text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer">View All Workflows</button>
+          </div>
+        </div>
+
+        {/* Runs by Trigger Type */}
+        <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5 flex flex-col">
+          <div className="flex items-center space-x-2 mb-1">
+            <h3 className="text-sm font-bold text-white">Runs by Trigger Type</h3>
+            <div className="w-3.5 h-3.5 rounded-full border border-slate-600 text-slate-400 flex items-center justify-center text-[8px]">i</div>
+          </div>
+          <p className="text-[10px] text-slate-400 mb-6">Breakdown of runs by trigger type.</p>
+          
+          <div className="flex-1 flex flex-col justify-center">
+            <div className="h-40 relative mb-6">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie data={triggerData} cx="50%" cy="50%" innerRadius={45} outerRadius={70} stroke="#0f172a" strokeWidth={2} dataKey="value" paddingAngle={2}>
+                    {triggerData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.fill} />)}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            
+            <div className="space-y-2.5">
+              {triggerData.map((s, i) => (
+                <div key={i} className="flex items-center justify-between text-[11px]">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: s.fill }}></div>
+                    <span className="text-slate-300">{s.name}</span>
+                  </div>
+                  <div className="flex space-x-2">
+                    <span className="text-white font-medium">{s.value}</span>
+                    <span className="text-slate-500 w-12 text-right">({Math.round((s.value/158)*100)}%)</span>
+                  </div>
+                </div>
+              ))}
+              <div className="flex items-center justify-between text-[11px] font-bold border-t border-slate-800/80 pt-2.5 mt-2.5">
+                <span className="text-slate-400">Total</span>
+                <span className="text-white mr-14">158</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Section: Recent Activity Impact & Insights */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        
+        {/* Recent Activity Impact */}
+        <div className="lg:col-span-2 bg-slate-900/40 border border-slate-800/80 rounded-xl p-5">
+          <div className="flex items-center space-x-2 mb-1">
+            <h3 className="text-sm font-bold text-white">Recent Activity Impact</h3>
+            <div className="w-3.5 h-3.5 rounded-full border border-slate-600 text-slate-400 flex items-center justify-center text-[8px]">i</div>
+          </div>
+          <p className="text-[10px] text-slate-400 mb-6">Impact generated by your workflows in the selected period.</p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {[
+              { label: 'Blog Posts Published', value: '28', trend: '21%', icon: Globe, color: 'text-emerald-400' },
+              { label: 'Social Posts Created', value: '156', trend: '18%', icon: Users, color: 'text-blue-400' },
+              { label: 'Keywords Researched', value: '312', trend: '24%', icon: Search, color: 'text-amber-400' },
+              { label: 'Emails Sent', value: '1,842', trend: '16%', icon: Mail, color: 'text-purple-400' },
+              { label: 'Hours Saved', value: '24h 18m', trend: '22%', icon: Clock, color: 'text-teal-400' }
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col">
+                <div className="flex items-center space-x-2 mb-2">
+                  <item.icon size={16} className={item.color} />
+                  <span className="text-[9px] font-bold text-slate-400 uppercase leading-tight max-w-[80px]">{item.label}</span>
+                </div>
+                <div className="text-2xl font-bold text-white mb-1">{item.value}</div>
+                <div className="text-[10px] text-emerald-400 font-bold flex items-center">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-3 h-3 mr-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                  {item.trend}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Insights */}
+        <div className="bg-[#0b1220]/80 border border-slate-800/80 rounded-xl p-5 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center space-x-2">
+                <h3 className="text-sm font-bold text-white">Insights</h3>
+                <div className="w-3.5 h-3.5 rounded-full border border-slate-600 text-slate-400 flex items-center justify-center text-[8px]">i</div>
+              </div>
+              <button className="text-[10px] font-bold text-cyan-400 flex items-center space-x-1 hover:text-cyan-300 cursor-pointer">
+                <span>View All Insights</span>
+                <ChevronRight size={12} />
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              {[
+                { title: 'Performance is up!', desc: 'Your workflows ran 18.6% more this week compared to the previous 7 days.', icon: TrendingUp, color: 'text-emerald-400' },
+                { title: 'Time saver', desc: 'You saved 24h 18m this week—22.3% more time than the last week.', icon: Clock, color: 'text-blue-400' },
+                { title: 'High success rate', desc: 'Amazing! Your workflows maintained a 98.2% success rate.', icon: Sparkles, color: 'text-purple-400' }
+              ].map((ins, i) => (
+                <div key={i} className="flex items-start space-x-3">
+                  <div className="mt-0.5"><ins.icon size={14} className={ins.color} /></div>
+                  <div>
+                    <h4 className="text-[11px] font-bold text-white leading-tight">{ins.title}</h4>
+                    <p className="text-[10px] text-slate-400 mt-0.5 leading-snug">{ins.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+function LiveActivityView() {
+  const lineData = [
+    { time: '11:40 AM', started: 15, completed: 10 },
+    { time: '11:41 AM', started: 18, completed: 12 },
+    { time: '11:42 AM', started: 25, completed: 18 },
+    { time: '11:43 AM', started: 20, completed: 15 },
+    { time: '11:44 AM', started: 28, completed: 14 },
+    { time: '11:45 AM', started: 22, completed: 15 },
+  ];
+
+  return (
+    <div className="flex-1 overflow-y-auto px-4 md:px-8 py-8 custom-scrollbar">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
+        <div>
+          <div className="flex items-center space-x-3 mb-2">
+            <h1 className="text-3xl font-bold text-white">Live Activity</h1>
+            <div className="flex items-center space-x-1.5 px-2 py-0.5 bg-emerald-950/40 border border-emerald-900/50 rounded-full">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_5px_#34d399]"></div>
+              <span className="text-[10px] font-bold text-emerald-400 uppercase">Live</span>
+            </div>
+          </div>
+          <p className="text-sm text-slate-400">Monitor your workflows in real-time and see what's happening right now.</p>
+        </div>
+        <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 px-3 py-2 border border-slate-800 bg-slate-900/50 rounded-lg text-[11px] text-slate-300 font-bold cursor-pointer hover:border-slate-700 transition-colors">
+            <RefreshCw size={12} className="text-slate-400" />
+            <span>Auto Refresh</span>
+            <span className="text-slate-500 mx-1">|</span>
+            <span>5s</span>
+            <ChevronDown size={12} className="text-slate-500" />
+          </div>
+          <button className="flex items-center space-x-2 border border-slate-700 hover:border-slate-600 bg-slate-900 px-4 py-2 rounded-lg text-xs font-bold text-slate-300 transition-colors cursor-pointer">
+            <Filter size={12} className="text-slate-400" />
+            <span>Filters</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Top Metrics Row */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        {[
+          { title: 'Active Workflows', value: '8', subValue: 'of 12 total', trend: '2 vs yesterday', trendColor: 'text-emerald-400', icon: Activity, iconColor: 'text-purple-400', iconBg: 'bg-purple-950/30 border-purple-900/50', up: true },
+          { title: 'Running Executions', value: '23', subValue: '', trend: '5 vs yesterday', trendColor: 'text-emerald-400', icon: Play, iconColor: 'text-cyan-400', iconBg: 'bg-cyan-950/30 border-cyan-900/50', up: true },
+          { title: 'Success Rate', value: '98.2%', subValue: '', trend: '1.4% vs yesterday', trendColor: 'text-emerald-400', icon: CheckCircle2, iconColor: 'text-blue-500', iconBg: 'bg-blue-950/30 border-blue-900/50', up: true },
+          { title: 'Avg. Response Time', value: '1m 24s', subValue: '', trend: '12s vs yesterday', trendColor: 'text-emerald-400', icon: Clock, iconColor: 'text-amber-400', iconBg: 'bg-amber-950/30 border-amber-900/50', up: false } // arrow down is good for time
+        ].map((m, i) => (
+          <div key={i} className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5 flex flex-col justify-between hover:border-slate-700/80 transition-colors">
+            <div className="flex items-center justify-between mb-4">
+              <div className="text-[11px] font-bold text-slate-400 uppercase">{m.title}</div>
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center border shrink-0 ${m.iconBg}`}>
+                <m.icon size={20} className={m.iconColor} />
+              </div>
+              <div>
+                <div className="flex items-baseline space-x-1.5 mb-1">
+                  <div className="text-2xl font-bold text-white">{m.value}</div>
+                  {m.subValue && <div className="text-[10px] text-slate-500">{m.subValue}</div>}
+                </div>
+                <div className="flex items-center space-x-1 text-[10px]">
+                  <span className={`font-bold flex items-center ${m.trendColor}`}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className={`w-3 h-3 mr-0.5 ${!m.up ? 'rotate-180' : ''}`}><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    {m.trend}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* Left Column */}
+        <div className="lg:col-span-2 space-y-4">
+          
+          {/* Active Executions Table */}
+          <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5">
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center space-x-3">
+                <h3 className="text-sm font-bold text-white">Active Executions</h3>
+                <div className="px-2 py-0.5 rounded-full bg-cyan-950/40 border border-cyan-900/50 text-cyan-400 text-[10px] font-bold">23 Running</div>
+              </div>
+              <button className="text-[10px] font-bold text-cyan-400 flex items-center space-x-1 hover:text-cyan-300 cursor-pointer">
+                <span>View All Executions</span>
+                <ChevronRight size={12} />
+              </button>
+            </div>
+
+            <div className="w-full overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-800 text-[10px] text-slate-500 font-bold">
+                    <th className="pb-3 font-medium w-1/3">Workflow</th>
+                    <th className="pb-3 font-medium">Execution ID</th>
+                    <th className="pb-3 font-medium">Status</th>
+                    <th className="pb-3 font-medium">Started</th>
+                    <th className="pb-3 font-medium w-1/4">Duration</th>
+                  </tr>
+                </thead>
+                <tbody className="text-[11px]">
+                  {[
+                    { name: 'Autophagy Content Automation', trigger: 'Scheduled Trigger', icon: Share2, color: 'text-blue-500', bg: 'bg-blue-600/20', id: '#24567', time: '11:58:00 AM', duration: '2m 18s', progress: 60 },
+                    { name: 'Social Media Post Automation', trigger: 'Manual Trigger', icon: Megaphone, color: 'text-emerald-500', bg: 'bg-emerald-600/20', id: '#24566', time: '11:55:41 AM', duration: '4m 32s', progress: 75 },
+                    { name: 'Weekly Newsletter Automation', trigger: 'Manual Trigger', icon: Mail, color: 'text-amber-500', bg: 'bg-amber-600/20', id: '#24565', time: '11:54:12 AM', duration: '3m 06s', progress: 45 },
+                    { name: 'SEO Content Research', trigger: 'Manual Trigger', icon: Search, color: 'text-blue-400', bg: 'bg-blue-500/20', id: '#24564', time: '11:53:20 AM', duration: '5m 10s', progress: 80 },
+                    { name: 'Lead Nurture Automation', trigger: 'Webhook Trigger', icon: TrendingUp, color: 'text-purple-500', bg: 'bg-purple-600/20', id: '#24563', time: '11:52:33 AM', duration: '1m 42s', progress: 35 },
+                    { name: 'Customer Support Automation', trigger: 'Manual Trigger', icon: ClipboardList, color: 'text-emerald-400', bg: 'bg-emerald-500/20', id: '#24562', time: '11:51:08 AM', duration: '6m 23s', progress: 90 },
+                    { name: 'Product Update Announcer', trigger: 'Scheduled Trigger', icon: Star, color: 'text-amber-400', bg: 'bg-amber-500/20', id: '#24561', time: '11:50:02 AM', duration: '2m 55s', progress: 65 },
+                    { name: 'Competitor Monitoring', trigger: 'Scheduled Trigger', icon: Eye, color: 'text-purple-400', bg: 'bg-purple-500/20', id: '#24560', time: '11:48:45 AM', duration: '7m 18s', progress: 70 },
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b border-slate-800/50 last:border-0 hover:bg-slate-800/30 transition-colors">
+                      <td className="py-3.5 pr-2">
+                        <div className="flex items-center space-x-3">
+                          <div className={`w-8 h-8 rounded border border-slate-700/50 flex items-center justify-center shrink-0 ${row.bg}`}>
+                            <row.icon size={14} className={row.color} />
+                          </div>
+                          <div>
+                            <div className="font-bold text-white text-xs whitespace-nowrap">{row.name}</div>
+                            <div className="text-[9px] text-slate-500 mt-0.5">{row.trigger}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="py-3.5 text-slate-400 font-medium">{row.id}</td>
+                      <td className="py-3.5">
+                        <div className="flex items-center space-x-1.5">
+                          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_5px_#34d399]"></div>
+                          <span className="text-emerald-400 font-bold">Running</span>
+                        </div>
+                      </td>
+                      <td className="py-3.5 text-slate-300 font-medium">{row.time}</td>
+                      <td className="py-3.5">
+                        <div className="flex items-center justify-between space-x-3">
+                          <span className="text-slate-300 font-medium">{row.duration}</span>
+                          <div className="flex-1 h-1 bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-full bg-cyan-400 shadow-[0_0_5px_#22d3ee]" style={{ width: `${row.progress}%` }}></div>
+                          </div>
+                          <span className="text-slate-400 text-[9px] w-6 text-right">{row.progress}%</span>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-4 flex justify-center">
+              <button className="px-4 py-1.5 border border-slate-700 rounded-lg text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer">View All Executions →</button>
+            </div>
+          </div>
+
+          {/* System Health */}
+          <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5">
+            <h3 className="text-sm font-bold text-white mb-1">System Health</h3>
+            <p className="text-[10px] text-slate-400 mb-5">All systems are operating normally.</p>
+            
+            <div className="flex flex-wrap items-center gap-6 justify-between lg:justify-start lg:gap-12 pb-2">
+              {[
+                { name: 'Workflow Engine', icon: Server, color: 'text-cyan-400' },
+                { name: 'Integrations', icon: Zap, color: 'text-amber-400' },
+                { name: 'Database', icon: Database, color: 'text-emerald-400' },
+                { name: 'API Services', icon: Cloud, color: 'text-purple-400' }
+              ].map((sys, i) => (
+                <div key={i} className="flex items-center space-x-3">
+                  <sys.icon size={20} className={sys.color} />
+                  <div>
+                    <div className="text-[11px] font-bold text-slate-300">{sys.name}</div>
+                    <div className="flex items-center space-x-1.5 mt-0.5">
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
+                      <span className="text-[9px] font-bold text-emerald-400">Healthy</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-5 pt-4 border-t border-slate-800 flex justify-center lg:justify-start">
+               <button className="text-[10px] font-bold text-slate-400 flex items-center space-x-1 hover:text-white cursor-pointer transition-colors">
+                <span>View System Status</span>
+                <ChevronRight size={12} />
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-4">
+          
+          {/* Real-time Overview */}
+          <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5">
+            <h3 className="text-sm font-bold text-white mb-1">Real-time Overview</h3>
+            <p className="text-[10px] text-slate-400 mb-5">Live data from the last 5 minutes</p>
+            
+            <div className="grid grid-cols-4 gap-2 mb-6">
+              {[
+                { label: 'Executions Started', val: '18', trend: '12%', up: true, color: 'text-cyan-400' },
+                { label: 'Executions Completed', val: '15', trend: '7%', up: true, color: 'text-emerald-400' },
+                { label: 'Executions Failed', val: '0', trend: '—', up: null, color: 'text-rose-400' },
+                { label: 'Executions In Progress', val: '23', trend: '15%', up: true, color: 'text-purple-400' }
+              ].map((s, i) => (
+                <div key={i} className="flex flex-col">
+                  <div className="text-[8px] font-bold text-slate-400 uppercase leading-tight mb-1 h-6">{s.label}</div>
+                  <div className={`text-xl font-bold mb-0.5 ${s.val === '0' ? 'text-slate-500' : 'text-white'}`}>{s.val}</div>
+                  <div className={`text-[9px] font-bold flex items-center ${s.up ? 'text-emerald-400' : 'text-slate-500'}`}>
+                    {s.up !== null && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className={`w-2.5 h-2.5 mr-0.5 ${!s.up ? 'rotate-180' : ''}`}><polyline points="18 15 12 9 6 15"></polyline></svg>}
+                    {s.trend}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="h-40 w-full relative -ml-4">
+               <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={lineData} margin={{ top: 5, right: 0, left: -25, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" />
+                    <XAxis dataKey="time" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: '#64748b' }} dy={5} />
+                    <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: '#64748b' }} />
+                    <RechartsTooltip contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '8px', fontSize: '11px', color: '#fff' }} />
+                    <Line type="monotone" dataKey="started" stroke="#06b6d4" strokeWidth={2} dot={{ r: 3, fill: '#06b6d4', stroke: '#020617', strokeWidth: 2 }} activeDot={{ r: 5 }} />
+                    <Line type="monotone" dataKey="completed" stroke="#8b5cf6" strokeWidth={2} strokeDasharray="3 3" dot={{ r: 3, fill: '#8b5cf6', stroke: '#020617', strokeWidth: 2 }} activeDot={{ r: 5 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+            </div>
+            <div className="flex items-center justify-center space-x-6 mt-3">
+               <div className="flex items-center space-x-1.5 text-[9px] text-slate-400 font-medium">
+                  <div className="w-2 h-0.5 bg-cyan-400"></div>
+                  <span>Executions Started</span>
+               </div>
+               <div className="flex items-center space-x-1.5 text-[9px] text-slate-400 font-medium">
+                  <div className="w-2 h-0.5 bg-purple-500 border-dashed border-b border-purple-500"></div>
+                  <span>Executions Completed</span>
+               </div>
+            </div>
+          </div>
+
+          {/* Recent Activity Feed */}
+          <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5 flex-1 min-h-[350px] flex flex-col">
+            <h3 className="text-sm font-bold text-white mb-1">Recent Activity</h3>
+            <p className="text-[10px] text-slate-400 mb-5">Live feed of workflow events</p>
+            
+            <div className="flex-1 space-y-4">
+              {[
+                { msg: 'Autophagy Content Automation completed successfully', id: 'Execution #24550', time: '11:58:25 AM', icon: CheckCircle2, color: 'text-emerald-400', bg: 'bg-emerald-950/30' },
+                { msg: 'Social Media Post Automation started', id: 'Execution #24556', time: '11:55:41 AM', icon: Play, color: 'text-cyan-400', bg: 'bg-cyan-950/30' },
+                { msg: 'SEO Content Research completed successfully', id: 'Execution #24549', time: '11:53:12 AM', icon: CheckCircle2, color: 'text-emerald-400', bg: 'bg-emerald-950/30' },
+                { msg: 'Lead Nurture Automation started', id: 'Execution #24563', time: '11:52:33 AM', icon: Play, color: 'text-cyan-400', bg: 'bg-cyan-950/30' },
+                { msg: 'Weekly Newsletter Automation scheduled', id: 'Next run at 12:00 PM', time: '11:50:02 AM', icon: AlertTriangle, color: 'text-amber-400', bg: 'bg-amber-950/30' },
+              ].map((ev, i) => (
+                <div key={i} className="flex items-start space-x-3 group cursor-pointer">
+                  <div className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center shrink-0 border border-transparent group-hover:border-slate-700 transition-colors ${ev.bg}`}>
+                    <ev.icon size={12} className={ev.color} />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-[11px] font-bold text-slate-200 leading-tight group-hover:text-white transition-colors">{ev.msg}</div>
+                    <div className="text-[9px] text-slate-500 mt-0.5">{ev.id}</div>
+                  </div>
+                  <div className="text-[9px] text-slate-400 shrink-0">{ev.time}</div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-4 pt-4 border-t border-slate-800 flex justify-center">
+               <button className="text-[10px] font-bold text-slate-400 flex items-center space-x-1 hover:text-white cursor-pointer transition-colors">
+                <span>View All Activity</span>
+                <ChevronRight size={12} />
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MarketplaceView() {
+  const [activeCategory, setActiveCategory] = React.useState('SEO & Growth');
+  const [skills, setSkills] = React.useState<any[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+  
+  const categories = [
+    'All Categories', 'SEO & Growth', 'Content & Writing', 'Marketing', 
+    'Design & Creative', 'Development', 'Data & Analytics', 'Sales & Support'
+  ];
+
+  const defaultSkills = [
+    { name: 'Keyword Researcher', desc: 'Find high-value keywords with low competition and high intent.', bestFor: 'Content strategy, SEO planning', price: '$15 / task', icon: Search, color: 'text-emerald-400', bg: 'bg-emerald-950/40', ring: 'ring-emerald-900/50' },
+    { name: 'On-Page SEO Optimizer', desc: 'Optimize titles, meta tags, headers, and content for better rankings.', bestFor: 'New pages, content updates', price: '$20 / page', icon: LayoutTemplate, color: 'text-blue-400', bg: 'bg-blue-950/40', ring: 'ring-blue-900/50' },
+    { name: 'Link Building Specialist', desc: 'Find quality backlink opportunities and manage outreach.', bestFor: 'Authority building, off-page SEO', price: '$35 / link', icon: Link, color: 'text-cyan-400', bg: 'bg-cyan-950/40', ring: 'ring-cyan-900/50' },
+    { name: 'Technical SEO Auditor', desc: 'Scan and report technical issues that impact performance.', bestFor: 'Site health, performance improvement', price: '$45 / audit', icon: ShieldCheck, color: 'text-amber-400', bg: 'bg-amber-950/40', ring: 'ring-amber-900/50' },
+    { name: 'Content Gap Analyst', desc: 'Discover content gaps and topic opportunities your competitors rank for.', bestFor: 'Content planning, topic strategy', price: '$25 / report', icon: FileText, color: 'text-emerald-400', bg: 'bg-emerald-950/40', ring: 'ring-emerald-900/50' },
+    { name: 'Competitor Analyst', desc: "Analyze competitors' strategies and uncover growth opportunities.", bestFor: 'Ongoing SEO monitoring', price: '$30 / report', icon: Target, color: 'text-fuchsia-400', bg: 'bg-fuchsia-950/40', ring: 'ring-fuchsia-900/50' },
+    { name: 'Rank Tracker Reporter', desc: 'Track rankings across keywords and deliver actionable reports.', bestFor: 'Rank tracking, performance reporting', price: '$10 / report', icon: LineChartIcon, color: 'text-teal-400', bg: 'bg-teal-950/40', ring: 'ring-teal-900/50' },
+    { name: 'Schema Markup Expert', desc: 'Implement schema markup to improve rich results and CTR.', bestFor: 'Rich results, visibility boost', price: '$30 / page', icon: Code, color: 'text-purple-400', bg: 'bg-purple-950/40', ring: 'ring-purple-900/50' },
+  ];
+
+  const iconMap: Record<string, any> = {
+    'Search': Search,
+    'LayoutTemplate': LayoutTemplate,
+    'Link': Link,
+    'ShieldCheck': ShieldCheck,
+    'FileText': FileText,
+    'Target': Target,
+    'LineChart': LineChartIcon,
+    'Code': Code
+  };
+
+  React.useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const { data, error } = await supabase.from('marketplace_skills').select('*');
+        if (error || !data || data.length === 0) {
+          console.warn('Falling back to default skills (Supabase not configured or table empty).');
+          setSkills(defaultSkills);
+        } else {
+          const formattedSkills = data.map(s => ({
+            name: s.name,
+            desc: s.description,
+            bestFor: s.best_for,
+            price: s.price,
+            icon: iconMap[s.icon_name] || Star, // fallback icon
+            color: s.color_class,
+            bg: s.bg_class,
+            ring: s.ring_class
+          }));
+          setSkills(formattedSkills);
+        }
+      } catch (err) {
+        console.error('Failed to fetch from Supabase:', err);
+        setSkills(defaultSkills);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchSkills();
+  }, []);
+
+  return (
+    <div className="flex-1 overflow-y-auto custom-scrollbar bg-[#020617]">
+      {/* Top Header */}
+      <div className="px-6 md:px-8 pt-8 pb-4 flex flex-col md:flex-row md:items-start justify-between gap-4 border-b border-slate-800/60 sticky top-0 bg-[#020617]/90 backdrop-blur-md z-20">
+        <div>
+          <div className="flex items-center space-x-3 mb-2">
+            <div className="w-8 h-8 rounded-lg bg-cyan-950/50 border border-cyan-900/50 flex items-center justify-center">
+              <Sparkles size={16} className="text-cyan-400" />
+            </div>
+            <h1 className="text-2xl font-bold text-white">AI Marketplace</h1>
+          </div>
+          <p className="text-[11px] text-slate-400 max-w-xl">Access high-skilled AI specialists to supercharge your brand. Pay per task. No subscriptions.</p>
+        </div>
+        <div className="flex items-center space-x-4">
+          <div className="relative hidden sm:block">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+            <input type="text" placeholder="Search specialists or skills..." className="w-64 bg-slate-900/50 border border-slate-800 focus:border-slate-600 rounded-full py-1.5 pl-9 pr-4 text-[11px] text-slate-200 focus:outline-none transition-colors" />
+          </div>
+          <div className="flex items-center space-x-2">
+            <button className="relative w-8 h-8 rounded-full border border-slate-800/80 bg-slate-900/50 flex items-center justify-center text-slate-400 hover:text-white transition-colors cursor-pointer">
+              <Bell size={14} />
+              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-purple-500 rounded-full flex items-center justify-center text-[8px] font-bold text-white shadow-[0_0_8px_rgba(168,85,247,0.6)]">3</span>
+            </button>
+            <button className="relative w-8 h-8 rounded-full border border-slate-800/80 bg-slate-900/50 flex items-center justify-center text-slate-400 hover:text-white transition-colors cursor-pointer">
+              <ShoppingCart size={14} />
+              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-purple-500 rounded-full flex items-center justify-center text-[8px] font-bold text-white shadow-[0_0_8px_rgba(168,85,247,0.6)]">2</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-6 md:px-8 max-w-7xl mx-auto flex flex-col xl:flex-row gap-6">
+        
+        {/* Main Content Area */}
+        <div className="flex-1 space-y-6">
+          
+          {/* Hero Banner */}
+          <div className="relative w-full rounded-2xl overflow-hidden bg-slate-900/40 border border-slate-800/60 p-8 flex flex-col justify-center min-h-[220px]">
+             {/* Abstract Background Design */}
+             <div className="absolute top-0 right-0 bottom-0 w-1/2 overflow-hidden pointer-events-none">
+               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#020617]/0 to-transparent"></div>
+               
+               {/* Glowing circles mimicking the design */}
+               <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-32 h-32 rounded-full border-[3px] border-indigo-500/30 flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.2)]">
+                  <div className="w-24 h-24 rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-500/20 to-transparent flex items-center justify-center backdrop-blur-sm border border-indigo-500/40">
+                     <span className="text-2xl font-bold text-white tracking-wider">SEO</span>
+                  </div>
+               </div>
+               
+               {/* Decorative nodes */}
+               <div className="absolute top-[20%] right-[10%] w-8 h-8 rounded-full bg-cyan-950/60 border border-cyan-800 flex items-center justify-center"><Search size={12} className="text-cyan-400" /></div>
+               <div className="absolute bottom-[20%] right-[40%] w-8 h-8 rounded-full bg-emerald-950/60 border border-emerald-800 flex items-center justify-center"><Link size={12} className="text-emerald-400" /></div>
+               <div className="absolute top-[30%] right-[45%] w-6 h-6 rounded-full bg-blue-950/60 border border-blue-800 flex items-center justify-center"><BarChart2 size={10} className="text-blue-400" /></div>
+             </div>
+
+             <div className="relative z-10 max-w-md">
+                <div className="flex items-center space-x-2 text-[10px] text-slate-500 font-medium mb-4">
+                  <span className="text-blue-500 hover:text-blue-400 cursor-pointer transition-colors">Marketplace</span>
+                  <ChevronRight size={10} />
+                  <span className="text-slate-300">SEO & Growth</span>
+                </div>
+                <div className="flex items-center space-x-4 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-indigo-950/50 border border-indigo-900/50 flex items-center justify-center">
+                    <TrendingUp size={18} className="text-indigo-400" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-white">SEO & Growth Specialists</h2>
+                </div>
+                <p className="text-sm text-slate-400 ml-14">Boost your rankings, drive organic traffic, and grow your online presence.</p>
+             </div>
+          </div>
+
+          {/* Categories Row */}
+          <div className="flex items-center space-x-2 overflow-x-auto custom-scrollbar pb-2">
+            {categories.map(cat => (
+              <button 
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`whitespace-nowrap px-4 py-1.5 rounded-full text-[11px] font-bold border transition-colors cursor-pointer ${activeCategory === cat ? 'bg-indigo-950/40 border-indigo-500/50 text-indigo-300' : 'bg-slate-900/30 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'}`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Filters Row */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2 px-3 py-1.5 bg-slate-900/40 border border-slate-800 rounded-lg text-[10px] text-slate-300 cursor-pointer hover:border-slate-700 transition-colors">
+              <span>All SEO Skills</span>
+              <ChevronDown size={12} className="ml-2 text-slate-500" />
+            </div>
+            <div className="flex items-center space-x-2 text-[10px] text-slate-400">
+              <span>Sort by:</span>
+              <div className="flex items-center space-x-1 px-2 py-1 bg-slate-900/40 border border-slate-800 rounded cursor-pointer hover:border-slate-700 transition-colors text-slate-300">
+                <span>Popular</span>
+                <ChevronDown size={10} className="ml-1 text-slate-500" />
+              </div>
+            </div>
+          </div>
+
+          {/* Grid of Specialists */}
+          {isLoading ? (
+            <div className="flex justify-center py-12">
+              <div className="w-8 h-8 rounded-full border-2 border-cyan-500 border-t-transparent animate-spin"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {skills.map((skill, i) => (
+                <div key={i} className="bg-slate-900/30 border border-slate-800/80 rounded-xl p-5 flex flex-col justify-between hover:border-slate-700/80 transition-all group">
+                  <div>
+                    <div className="flex items-start justify-between mb-4">
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ring-1 ring-inset ${skill.ring} ${skill.bg}`}>
+                        {skill.icon && <skill.icon size={18} className={skill.color} />}
+                      </div>
+                      <button className="text-slate-600 hover:text-slate-300 transition-colors cursor-pointer">
+                        <Bookmark size={14} />
+                      </button>
+                    </div>
+                    <h3 className="text-sm font-bold text-white mb-1.5 group-hover:text-cyan-400 transition-colors">{skill.name}</h3>
+                    <p className="text-[11px] text-slate-400 mb-4 leading-relaxed min-h-[36px]">{skill.desc}</p>
+                    <p className="text-[10px] text-slate-500 mb-6 min-h-[30px]"><span className="text-slate-400 font-medium">Best for:</span> {skill.bestFor}</p>
+                  </div>
+                  <div className="flex items-center justify-between mt-auto border-t border-slate-800/60 pt-4">
+                    <div>
+                      <div className="text-[9px] text-slate-500 mb-0.5">Starting at</div>
+                      <div className="text-[13px] font-bold"><span className={skill.color}>{skill.price.split(' ')[0]}</span> <span className="text-slate-400 text-[10px]">{skill.price.substring(skill.price.indexOf(' '))}</span></div>
+                    </div>
+                    <button className="px-3 py-1.5 bg-slate-800/50 hover:bg-cyan-950/40 text-[10px] font-bold text-cyan-400 border border-slate-700 hover:border-cyan-900/50 rounded-lg transition-colors cursor-pointer">
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Bottom Banner */}
+          <div className="w-full rounded-xl bg-gradient-to-r from-indigo-950/40 to-purple-950/20 border border-indigo-900/30 p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 mt-6">
+             <div className="flex items-start space-x-3">
+                <div className="mt-1"><Star size={16} className="text-indigo-400" /></div>
+                <div>
+                   <h4 className="text-sm font-bold text-white mb-1">Can't find what you need?</h4>
+                   <p className="text-[11px] text-slate-400">Submit a custom request and our AI will match you with the perfect specialist.</p>
+                </div>
+             </div>
+             <button className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-bold rounded-lg transition-colors flex items-center justify-center space-x-2 shrink-0 shadow-[0_0_15px_rgba(79,70,229,0.3)] cursor-pointer">
+               <span>Submit Custom Request</span>
+               <ArrowRight size={12} />
+             </button>
+          </div>
+
+        </div>
+
+        {/* Right Sidebar */}
+        <div className="w-full xl:w-[280px] shrink-0 space-y-4">
+          
+          {/* How It Works */}
+          <div className="bg-slate-900/30 border border-slate-800/60 rounded-xl p-5">
+            <h3 className="text-sm font-bold text-white mb-4">How It Works</h3>
+            <div className="space-y-4 relative before:absolute before:inset-y-2 before:left-[11px] before:w-px before:bg-slate-800">
+              {[
+                { step: '1', title: 'Choose a Specialist', desc: 'Browse specialists and select the one that fits your task.' },
+                { step: '2', title: 'Submit Your Task', desc: 'Provide details and specific requirements.' },
+                { step: '3', title: 'AI Gets to Work', desc: 'The specialist AI analyzes and executes your task.' },
+                { step: '4', title: 'Receive Results', desc: 'Get high-quality results delivered fast.' }
+              ].map((s, i) => (
+                <div key={i} className="flex items-start space-x-3 relative z-10">
+                  <div className="w-6 h-6 rounded-full bg-cyan-950 border border-cyan-900/50 flex items-center justify-center text-[10px] font-bold text-cyan-400 shrink-0">
+                    {s.step}
+                  </div>
+                  <div className="pt-0.5">
+                    <div className="text-[11px] font-bold text-slate-200 mb-0.5">{s.title}</div>
+                    <div className="text-[9px] text-slate-500 leading-relaxed">{s.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button className="mt-5 text-[10px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center space-x-1 transition-colors cursor-pointer">
+              <span>Learn more</span>
+              <ArrowRight size={10} />
+            </button>
+          </div>
+
+          {/* My Cart */}
+          <div className="bg-slate-900/30 border border-slate-800/60 rounded-xl p-5">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2">
+                <ShoppingCart size={14} className="text-slate-400" />
+                <h3 className="text-sm font-bold text-white">My Cart</h3>
+              </div>
+              <div className="w-4 h-4 rounded-full bg-purple-500 flex items-center justify-center text-[9px] font-bold text-white">2</div>
+            </div>
+            
+            <div className="space-y-3 mb-4">
+               <div className="flex items-start justify-between">
+                  <div className="flex items-start space-x-2.5">
+                     <div className="w-6 h-6 rounded bg-emerald-950/40 border border-emerald-900/50 flex items-center justify-center shrink-0 mt-0.5">
+                        <Search size={10} className="text-emerald-400" />
+                     </div>
+                     <div>
+                        <div className="text-[11px] font-bold text-slate-300">Keyword Researcher</div>
+                        <div className="text-[9px] text-slate-500">$15 / task</div>
+                     </div>
+                  </div>
+                  <button className="text-slate-600 hover:text-slate-400 p-0.5 cursor-pointer"><X size={10} /></button>
+               </div>
+               
+               <div className="flex items-start justify-between">
+                  <div className="flex items-start space-x-2.5">
+                     <div className="w-6 h-6 rounded bg-amber-950/40 border border-amber-900/50 flex items-center justify-center shrink-0 mt-0.5">
+                        <ShieldCheck size={10} className="text-amber-400" />
+                     </div>
+                     <div>
+                        <div className="text-[11px] font-bold text-slate-300">Technical SEO Auditor</div>
+                        <div className="text-[9px] text-slate-500">$45 / audit</div>
+                     </div>
+                  </div>
+                  <button className="text-slate-600 hover:text-slate-400 p-0.5 cursor-pointer"><X size={10} /></button>
+               </div>
+            </div>
+
+            <div className="border-t border-slate-800/60 pt-4 mb-4 flex items-center justify-between">
+               <span className="text-[11px] text-slate-400">Estimated Total</span>
+               <span className="text-sm font-bold text-purple-400">$60.00</span>
+            </div>
+
+            <button className="w-full py-2 bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-bold rounded-lg transition-colors shadow-[0_0_10px_rgba(147,51,234,0.3)] cursor-pointer">
+               View Cart
+            </button>
+          </div>
+
+          {/* Need Help */}
+          <div className="bg-slate-900/30 border border-slate-800/60 rounded-xl p-5">
+             <h3 className="text-xs font-bold text-white mb-2">Need Help?</h3>
+             <p className="text-[10px] text-slate-400 mb-4">Our AI Concierge is here to help you find the perfect specialist.</p>
+             <button className="w-full py-2 bg-slate-800/50 border border-slate-700 hover:bg-slate-800 text-cyan-400 text-[10px] font-bold rounded-lg transition-colors flex items-center justify-center space-x-2 cursor-pointer">
+                <MessageCircle size={12} />
+                <span>Chat with Concierge</span>
+                <ArrowRight size={10} />
+             </button>
+          </div>
+
+        </div>
+
+      </div>
+      
+      {/* Floating Action Button (Optional Chat bubble from design bottom right) */}
+      <div className="fixed bottom-6 right-6 z-50">
+         <button className="w-12 h-12 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-transform hover:scale-105 cursor-pointer">
+            <MessageSquare size={20} className="fill-slate-900" />
+         </button>
+      </div>
+    </div>
+  );
+}
+
 export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
   const [leftSidebarOpen, setLeftSidebarOpen] = React.useState(false);
   const [rightSidebarOpen, setRightSidebarOpen] = React.useState(false);
-  const [activeTab, setActiveTab] = React.useState<'overview' | 'mission-control' | 'brands' | 'brand-details' | 'ai-employees'>('overview');
+  const [activeTab, setActiveTab] = React.useState<'overview' | 'mission-control' | 'brands' | 'brand-details' | 'brand-tasks' | 'ai-employees' | 'workflows' | 'analytics' | 'live-activity' | 'marketplace'>('overview');
   const [employeesList, setEmployeesList] = React.useState(aiEmployeesList);
   const [selectedEmpId, setSelectedEmpId] = React.useState('AI-EMP-001');
   const [empPage, setEmpPage] = React.useState(1);
@@ -1219,10 +2571,10 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
             <SidebarItem icon={Target} label="Mission Control" active={activeTab === 'mission-control'} onClick={() => { setActiveTab('mission-control'); setLeftSidebarOpen(false); }} />
             <SidebarItem icon={Folder} label="Brands" active={activeTab === 'brands' || activeTab === 'brand-details'} onClick={() => { setActiveTab('brands'); setLeftSidebarOpen(false); }} />
             <SidebarItem icon={Users} label="AI Employees" active={activeTab === 'ai-employees'} onClick={() => { setActiveTab('ai-employees'); setLeftSidebarOpen(false); }} />
-            <SidebarItem icon={GitBranch} label="Workflows" />
-            <SidebarItem icon={BarChart2} label="Analytics" />
-            <SidebarItem icon={Activity} label="Live Activity" />
-            <SidebarItem icon={Store} label="Marketplace" />
+            <SidebarItem icon={GitBranch} label="Workflows" active={activeTab === 'workflows'} onClick={() => { setActiveTab('workflows'); setLeftSidebarOpen(false); }} />
+            <SidebarItem icon={BarChart2} label="Analytics" active={activeTab === 'analytics'} onClick={() => { setActiveTab('analytics'); setLeftSidebarOpen(false); }} />
+            <SidebarItem icon={Activity} label="Live Activity" active={activeTab === 'live-activity'} onClick={() => { setActiveTab('live-activity'); setLeftSidebarOpen(false); }} />
+            <SidebarItem icon={Store} label="Marketplace" active={activeTab === 'marketplace'} onClick={() => { setActiveTab('marketplace'); setLeftSidebarOpen(false); }} />
           </SidebarSection>
 
           <SidebarSection title="Management">
@@ -3437,6 +4789,16 @@ export default function Dashboard({ onSignOut }: { onSignOut?: () => void }) {
           </>
         ) : activeTab === 'brand-details' ? (
           <DigitalLegendsDetails setActiveTab={setActiveTab} />
+        ) : activeTab === 'brand-tasks' ? (
+          <DigitalLegendsTasks setActiveTab={setActiveTab} />
+        ) : activeTab === 'workflows' ? (
+          <WorkflowsView />
+        ) : activeTab === 'analytics' ? (
+          <AnalyticsView />
+        ) : activeTab === 'live-activity' ? (
+          <LiveActivityView />
+        ) : activeTab === 'marketplace' ? (
+          <MarketplaceView />
         ) : null}
       </main>
 
